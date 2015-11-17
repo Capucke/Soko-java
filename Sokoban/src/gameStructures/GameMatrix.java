@@ -30,7 +30,7 @@ class GameMatrix{
 		return this.matrix[0].length;
 	}
 	
-	public int getState(int i, int j) {
+	public int getObj(int i, int j) {
 		if (i < 0 || i >= this.matrix.length) {
 			throw new IllegalArgumentException(
 					"L'indice i correspond au numéro de la ligne où se trouve la case à laquelle vous souhaitez accéder. "
@@ -46,7 +46,7 @@ class GameMatrix{
 		}
 	}
 	
-	public void setState(int i, int j, int objType) {
+	public void setObj(int i, int j, int objType) {
 		if (objType < 0 || objType >= this.nbObj) {
 			throw new IllegalArgumentException(
 					"L'état passé en paramètre doit être un entier compris entre 0 et "
