@@ -74,6 +74,8 @@ class SokoMatrix {
 
 			int i = 0;
 			int j = 0;
+			
+			boolean widthOK = false ;
 
 			currCharInt = buffLevel.read();
 
@@ -81,8 +83,12 @@ class SokoMatrix {
 				currChar = (char) currCharInt;
 
 				if (currChar == '\n') {
+					if (j == width){
+						widthOK = true ;
+					}
 					while (j < width) {
 						this.startMat.setObj(i, j, EMPTY);
+						j += 1 ;
 					}
 					i += 1;
 					j = 0;
@@ -90,11 +96,15 @@ class SokoMatrix {
 
 					if (j >= width) {
 						throw new IllegalArgumentException(
-								"Le fichier passé en paramètre est au mauvais format : width incorrect");
+								"Le fichier passé en paramètre est au mauvais"
+										+ " format : width incorrect "
+										+ "(trop petit)");
 					}
 					if (i >= height) {
 						throw new IllegalArgumentException(
-								"Le fichier passé en paramètre est au mauvais format : height incorrect");
+								"Le fichier passé en paramètre est au mauvais"
+										+ " format : height incorrect "
+										+ "(trop petit)");
 					}
 
 					if (currChar == '#') {
@@ -110,7 +120,8 @@ class SokoMatrix {
 						this.startMat.setObj(i, j, EMPTY);
 					} else {
 						throw new IllegalArgumentException(
-								"Le fichier passé en paramètre est au mauvais format : carctère inconnu : "
+								"Le fichier passé en paramètre est au mauvais"
+										+ " format : carctère inconnu : "
 										+ Character.toString(currChar));
 					}
 
@@ -120,6 +131,25 @@ class SokoMatrix {
 				currCharInt = buffLevel.read();
 
 			}
+
+			if (!widthOK){
+				throw new IllegalArgumentException(
+						"Le fichier passé en paramètre est au mauvais format"
+								+ ": width incorrect (trop grand)");
+			}
+			
+			if (i == height - 1) {
+				while (j < width) {
+					this.startMat.setObj(i, j, EMPTY);
+				}
+			} else if (i < height - 1) {
+				throw new IllegalArgumentException(
+						"Le fichier passé en paramètre est au mauvais format"
+								+ ": height incorrect (trop grand)\n"
+								+ "La lecture du fichier se termine avec i = "
+								+ i);
+			}			
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
