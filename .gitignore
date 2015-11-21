@@ -18,3 +18,4 @@ Exemple_TPL.git
 *.project
 *.settings
 *.classpath
+*.metadata
