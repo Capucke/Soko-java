@@ -1,31 +1,88 @@
 package gameGraphics;
 
-import java.awt.Color;
-import javax.swing.JFrame;
+import gameGraphics.DefaultSimulator;
+import gameGraphics.Simulable;
 import gameGraphics.SokoPanel;
+import gameSimulator.ImageElement;
+import java.awt.BorderLayout;
+import java.awt.Color;
+//import java.awt.Dimension;
+import javax.swing.JFrame;
+//import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+
 
 public class SokoFenetre extends JFrame {
-	
-	public SokoFenetre(){	   
+    private static final long serialVersionUID = 1L;
+    //private JScrollPane scrollPane;
+    private SokoPanel simuPanel;
+    
+    private int panelWidth;
+    private int panelHeight;
+    private Simulable simulator;
+    
+    public SokoFenetre() {
+        this(500, 500, Color.MAGENTA);
+    }
 
-		//Définit un titre pour notre fenêtre
-		this.setTitle("Sokoban");
-		//Définit sa taille : 400 pixels de large et 100 pixels de haut
-		this.setSize(600, 400);
-		//Nous demandons maintenant à notre objet de se positionner au centre
-		this.setLocation(0,0);
-		//Termine le processus lorsqu'on clique sur la croix rouge
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		SokoPanel pan = new SokoPanel();
-		//On prévient notre JFrame que notre JPanel sera son content pane
-		this.setContentPane(pan);
-		pan.setBackground(Color.CYAN);
+    public SokoFenetre(int width, int height, Color bgColor) {
+        this(width, height, bgColor, new DefaultSimulator());
+    }
 
-		
-		//Et enfin, la rendre visible        
-		this.setVisible(true);
-		
-	}
-	  
+    public SokoFenetre(int width, int height, Color bgColor, Simulable simulator) {
+        super("Sokoban - Judith ;)");
+        this.setSimulable(simulator);
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception var7) {
+            var7.printStackTrace();
+        }
+
+        this.simuPanel = new SokoPanel(width, height, bgColor);
+        // this.scrollPane = new JScrollPane(this.simuPanel);
+        // this.scrollPane.setPreferredSize(new Dimension(Math.min(800, width), Math.min(600, height)));
+        this.panelWidth = width;
+        this.panelHeight = height;
+        this.simuPanel.setBackground(bgColor);
+        
+        this.getContentPane().setLayout(new BorderLayout());
+        
+        // à commenter pour remettre le scroll
+        this.getContentPane().add(this.simuPanel, "Center");
+        
+        // à décommenter pour remettre le scroll
+        //this.getContentPane().add(this.scrollPane, "Center");
+        
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.pack();
+        this.setVisible(true);
+    }
+
+    public void setSimulable(Simulable simulator) {
+        this.simulator = simulator;
+    }
+
+    public int getPanelWidth() {
+        return this.panelWidth;
+    }
+
+    public int getPanelHeight() {
+        return this.panelHeight;
+    }
+
+    public void addImageElement(ImageElement e) {
+        this.simuPanel.addImageElement(e);
+    }
+
+    public void reset() {
+        this.simuPanel.reset();
+    }
+
+    public void next() {
+        this.simulator.next();
+        this.simuPanel.repaint();
+        this.repaint();
+    }
+
 }

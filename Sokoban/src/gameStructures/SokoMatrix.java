@@ -11,13 +11,15 @@ class SokoMatrix {
 	private GameMatrix startMat;
 	private int nbGoal;
 	private int nbGoalOk;
+	private int sokoX = -1;
+	private int sokoY = -1;
 
-	private final int EMPTY = 0;
-	private final int SOKO = 1;
-	private final int BAG = 2;
-	private final int GOAL = 3;
-	private final int GOAL_OK = 4;
-	private final int WALL = 5;
+	public final static int EMPTY = 0;
+	public final static int SOKO = 1;
+	public final static int BAG = 2;
+	public final static int GOAL = 3;
+	public final static int GOAL_OK = 4;
+	public final static int WALL = 5;
 
 	public SokoMatrix(String levelName) {
 		this.initStartMatrix(this.getBuffLevel(levelName));
@@ -25,6 +27,7 @@ class SokoMatrix {
 	}
 
 	public void reInitCurMat() {
+		this.nbGoalOk = 0;
 		for (int i = 0; i < this.startMat.getNbLines(); i++) {
 			for (int j = 0; j < this.startMat.getNbCol(); j++) {
 				this.curMat.setObj(i, j, this.startMat.getObj(i, j));
@@ -74,8 +77,8 @@ class SokoMatrix {
 
 			int i = 0;
 			int j = 0;
-			
-			boolean widthOK = false ;
+
+			boolean widthOK = false;
 
 			currCharInt = buffLevel.read();
 
@@ -83,12 +86,12 @@ class SokoMatrix {
 				currChar = (char) currCharInt;
 
 				if (currChar == '\n') {
-					if (j == width){
-						widthOK = true ;
+					if (j == width) {
+						widthOK = true;
 					}
 					while (j < width) {
 						this.startMat.setObj(i, j, EMPTY);
-						j += 1 ;
+						j += 1;
 					}
 					i += 1;
 					j = 0;
@@ -116,12 +119,20 @@ class SokoMatrix {
 						this.nbGoal += 1;
 					} else if (currChar == '@') {
 						this.startMat.setObj(i, j, SOKO);
+						if (this.sokoX == -1 & this.sokoY == -1) {
+							this.sokoX = i;
+							this.sokoY = j;
+						} else {
+							throw new IllegalArgumentException(
+									"Le fichier passé en paramètre est au mauvais"
+											+ " format : il y a deux Soko (@)");
+						}
 					} else if (currChar == ' ') {
 						this.startMat.setObj(i, j, EMPTY);
 					} else {
 						throw new IllegalArgumentException(
 								"Le fichier passé en paramètre est au mauvais"
-										+ " format : carctère inconnu : "
+										+ " format : caractère inconnu : "
 										+ Character.toString(currChar));
 					}
 
@@ -132,12 +143,6 @@ class SokoMatrix {
 
 			}
 
-			if (!widthOK){
-				throw new IllegalArgumentException(
-						"Le fichier passé en paramètre est au mauvais format"
-								+ ": width incorrect (trop grand)");
-			}
-			
 			if (i == height - 1) {
 				while (j < width) {
 					this.startMat.setObj(i, j, EMPTY);
@@ -148,8 +153,19 @@ class SokoMatrix {
 								+ ": height incorrect (trop grand)\n"
 								+ "La lecture du fichier se termine avec i = "
 								+ i);
-			}			
-			
+			}
+
+			if (!widthOK) {
+				throw new IllegalArgumentException(
+						"Le fichier passé en paramètre est au mauvais format"
+								+ ": width incorrect (trop grand)");
+			}
+
+			if (this.sokoX == -1 || this.sokoY == -1) {
+				throw new IllegalArgumentException(
+						"Le fichier passé en paramètre est au mauvais"
+								+ " format : il n'y a pas de Soko (@)");
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
