@@ -15,14 +15,15 @@ import javax.swing.UIManager;
 public class SokoFenetre extends JFrame {
     private static final long serialVersionUID = 1L;
     //private JScrollPane scrollPane;
-    private SokoPanel simuPanel;
+    private SokoPanel sokoPanel;
     
     private int panelWidth;
     private int panelHeight;
     private Simulable simulator;
     
+    
     public SokoFenetre() {
-        this(500, 500, Color.MAGENTA);
+        this(800, 800, Color.MAGENTA);
     }
 
     public SokoFenetre(int width, int height, Color bgColor) {
@@ -39,17 +40,17 @@ public class SokoFenetre extends JFrame {
             var7.printStackTrace();
         }
 
-        this.simuPanel = new SokoPanel(width, height, bgColor);
-        // this.scrollPane = new JScrollPane(this.simuPanel);
+        this.sokoPanel = new SokoPanel(width, height, bgColor);
+        // this.scrollPane = new JScrollPane(this.sokoPanel);
         // this.scrollPane.setPreferredSize(new Dimension(Math.min(800, width), Math.min(600, height)));
         this.panelWidth = width;
         this.panelHeight = height;
-        this.simuPanel.setBackground(bgColor);
+        this.sokoPanel.setBackground(bgColor);
         
         this.getContentPane().setLayout(new BorderLayout());
         
         // à commenter pour remettre le scroll
-        this.getContentPane().add(this.simuPanel, "Center");
+        this.getContentPane().add(this.sokoPanel, "Center");
         
         // à décommenter pour remettre le scroll
         //this.getContentPane().add(this.scrollPane, "Center");
@@ -62,7 +63,11 @@ public class SokoFenetre extends JFrame {
     public void setSimulable(Simulable simulator) {
         this.simulator = simulator;
     }
-
+    
+    public SokoPanel getSokoPanel(){
+    	return this.sokoPanel;
+    }
+    
     public int getPanelWidth() {
         return this.panelWidth;
     }
@@ -72,16 +77,16 @@ public class SokoFenetre extends JFrame {
     }
 
     public void addImageElement(ImageElement e) {
-        this.simuPanel.addImageElement(e);
+        this.sokoPanel.addImageElement(e);
     }
 
     public void reset() {
-        this.simuPanel.reset();
+        this.sokoPanel.reset();
     }
 
-    public void next() {
-        this.simulator.next();
-        this.simuPanel.repaint();
+    public void display() {
+        this.simulator.display();
+        this.sokoPanel.repaint();
         this.repaint();
     }
 

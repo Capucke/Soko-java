@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package gameSimulator;
 
 import java.awt.Graphics2D;
@@ -18,9 +13,17 @@ public class ImageElement {
 	private ImageObserver observer;
 
 	public final static Image BAG_IMG;
+	public final static Image WALL_IMG;
+	public final static Image SOKO_IMG;
+	public final static Image GOAL_IMG;
+	public final static Image EMPTY_IMG;
 
 	static {
-		BAG_IMG = ImageElement.chargeImg("/img/final/clap.png");
+		BAG_IMG = ImageElement.chargeImg("/img/final/camera.png");
+		WALL_IMG = ImageElement.chargeImg("/img/final/vide.png");
+		SOKO_IMG = ImageElement.chargeImg("/img/final/peach.png");
+		GOAL_IMG = ImageElement.chargeImg("/img/final/clap.png");
+		EMPTY_IMG = ImageElement.chargeImg("/img/final/parquet.jpg");
 	}
 
 	public ImageElement(int theX, int theY, Image img, ImageObserver obs) {

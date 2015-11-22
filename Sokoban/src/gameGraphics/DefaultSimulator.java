@@ -6,8 +6,8 @@ class DefaultSimulator implements Simulable {
     DefaultSimulator() {
     }
 
-    public void next() {
-        this.message("next()");
+    public void display() {
+        this.message("display()");
     }
 
     public void restart() {

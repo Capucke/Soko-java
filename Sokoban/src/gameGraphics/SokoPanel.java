@@ -9,7 +9,7 @@ import java.awt.RenderingHints;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 
-class SokoPanel extends JPanel {
+public class SokoPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private LinkedList<ImageElement> objets;
 	private int width;

@@ -1,6 +1,6 @@
 package gameStructures ;
 
-class GameMatrix{
+public class GameMatrix{
 	
 	private int[][] matrix ;
 	private int nbObj ;
