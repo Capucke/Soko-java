@@ -49,53 +49,59 @@ public class SokoMatrix {
 	 * Déplace le personnage Soko vers le haut si possible, en mettant à jour
 	 * les valeurs de sokoI et sokoJ
 	 */
-	public void moveUp() {
-		if (!this.canMoveUp()) {
+	public void move(int diffI, int diffJ) {
+		if (!this.canMove(diffI, diffJ)) {
 			return;
 		}
 
 		int currObj = this.curMat.getObj(sokoI, sokoJ);
-		int upObj = this.curMat.getObj(sokoI - 1, sokoJ);
+		int nextObj = this.curMat.getObj(sokoI + diffI, sokoJ + diffJ);
 
 		/*
 		 * -EMPTY -SOKO BAG -GOAL GOAL_OK -SOKO_ON_GOAL -WALL
 		 */
-		if (upObj == BAG || upObj == GOAL_OK) {
-			int upUpObj = this.curMat.getObj(sokoI - 2, sokoJ);
+		if (nextObj == BAG || nextObj == GOAL_OK) {
+			int nextNextObj = this.curMat.getObj(sokoI + (2 * diffI), sokoJ
+					+ (2 * diffJ));
 
-			switch (upObj) {
+			switch (nextObj) {
 			case BAG:
-				switch (upUpObj) {
+				switch (nextNextObj) {
 				case EMPTY:
-					this.curMat.setObj(sokoI - 2, sokoJ, BAG);
-					this.curMat.setObj(sokoI - 1, sokoJ, EMPTY);
+					this.curMat.setObj(sokoI + (2 * diffI),
+							sokoJ + (2 * diffJ), BAG);
+					this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, EMPTY);
 					break;
 				case GOAL:
-					this.curMat.setObj(sokoI - 2, sokoJ, GOAL_OK);
-					this.curMat.setObj(sokoI - 1, sokoJ, EMPTY);
+					this.curMat.setObj(sokoI + (2 * diffI),
+							sokoJ + (2 * diffJ), GOAL_OK);
+					this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, EMPTY);
 					this.nbGoalOk++;
 					break;
 				default:
 					throw new IllegalStateException(
-							"Impossible : objet incompatible avec canMoveObjUp() en ("
-									+ (sokoI - 2) + ", " + sokoJ + ")\n"
+							"Impossible : objet incompatible avec canMoveObj() en ("
+									+ (sokoI + (2 * diffI)) + ", "
+									+ (sokoJ + (2 * diffJ)) + ")\n"
 									+ "valeur attendue : EMPTY ou GOAL");
 				}
 				break;
 			case GOAL_OK:
-				switch (upUpObj) {
+				switch (nextNextObj) {
 				case EMPTY:
-					this.curMat.setObj(sokoI - 2, sokoJ, BAG);
-					this.curMat.setObj(sokoI - 1, sokoJ, GOAL);
+					this.curMat.setObj(sokoI + (2 * diffI),
+							sokoJ + (2 * diffJ), BAG);
+					this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, GOAL);
 					this.nbGoalOk--;
 					break;
 				case GOAL:
-					this.curMat.setObj(sokoI - 2, sokoJ, GOAL_OK);
-					this.curMat.setObj(sokoI - 1, sokoJ, GOAL);
+					this.curMat.setObj(sokoI + (2 * diffI),
+							sokoJ + (2 * diffJ), GOAL_OK);
+					this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, GOAL);
 					break;
 				default:
 					throw new IllegalStateException(
-							"Impossible : objet incompatible avec canMoveObjUp() en ("
+							"Impossible : objet incompatible avec canMoveObj() en ("
 									+ (sokoI - 2) + ", " + sokoJ + ")\n"
 									+ "valeur attendue : EMPTY ou GOAL");
 				}
@@ -112,13 +118,14 @@ public class SokoMatrix {
 			this.curMat.setObj(sokoI, sokoJ, EMPTY);
 		}
 
-		if (this.curMat.getObj(sokoI - 1, sokoJ) == GOAL) {
-			this.curMat.setObj(sokoI - 1, sokoJ, SOKO_ON_GOAL);
+		if (this.curMat.getObj(sokoI + diffI, sokoJ + diffJ) == GOAL) {
+			this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, SOKO_ON_GOAL);
 		} else {
-			this.curMat.setObj(sokoI - 1, sokoJ, SOKO);
+			this.curMat.setObj(sokoI + diffI, sokoJ + diffJ, SOKO);
 		}
 
-		this.sokoI--;
+		this.sokoI = this.sokoI + diffI;
+		this.sokoJ = this.sokoJ + diffJ;
 	}
 
 	/**
@@ -126,21 +133,25 @@ public class SokoMatrix {
 	 * 
 	 * @return true si Soko peut bouger vers le heut, false sinon
 	 */
-	public boolean canMoveUp() {
-		if (sokoI == 0) {
+	public boolean canMove(int diffI, int diffJ) {
+
+		int nextSokoI = this.sokoI + diffI;
+		int nextSokoJ = this.sokoJ + diffJ;
+
+		if (nextSokoI < 0 || nextSokoJ < 0) {
 			return false;
 		}
-		int upObj = this.curMat.getObj(sokoI - 1, sokoJ);
+		int nextObj = this.curMat.getObj(nextSokoI, nextSokoJ);
 
-		boolean canMoveUp;
+		boolean canMove;
 
-		switch (upObj) {
+		switch (nextObj) {
 		case WALL:
-			canMoveUp = false;
+			canMove = false;
 			break;
 		case EMPTY:
 		case GOAL:
-			canMoveUp = true;
+			canMove = true;
 			break;
 		case SOKO:
 		case SOKO_ON_GOAL:
@@ -148,39 +159,46 @@ public class SokoMatrix {
 					"Impossible : il y a 2 soko sur le plateau !");
 		case BAG:
 		case GOAL_OK:
-			canMoveUp = this.canMoveObjUp(sokoI - 1, sokoJ);
+			canMove = this.canMoveObj(sokoI + diffI, sokoJ + diffJ, diffI,
+					diffJ);
 			break;
 		default:
 			throw new IllegalStateException(
 					"Impossible : il y a un état qui ne représente pas un objet!");
 		}
 
-		return canMoveUp;
+		return canMove;
 
 	}
 
 	/**
-	 * Procédure pour déterminer si un objet placé aux coordonnées (i,j)
+	 * Procédure pour déterminer si un objet placé aux coordonnées (nextI,nextJ)
+	 * (qui sont les prochaines coordonnées du personnage Soko) aux coordonnées
+	 * (nextNextI,nextNextJ)
 	 * 
-	 * @return true si l'objet peut être déplacé vers le heut, false sinon
+	 * @return true si l'objet peut être déplacé, false sinon
 	 */
-	private boolean canMoveObjUp(int i, int j) {
-		if (i == 0) {
+	private boolean canMoveObj(int objI, int objJ, int diffI, int diffJ) {
+
+		int nextObjI = objI + diffI;
+		int nextObjJ = objJ + diffJ;
+
+		if (nextObjI < 0 || nextObjJ < 0) {
 			return false;
 		}
-		int upObj = this.curMat.getObj(i - 1, j);
+		int nextObj = this.curMat.getObj(nextObjI, nextObjJ);
 
-		boolean canMoveUp;
+		boolean canMove;
 
-		switch (upObj) {
+		switch (nextObj) {
 		case WALL:
 		case BAG:
 		case GOAL_OK:
-			canMoveUp = false;
+			canMove = false;
 			break;
 		case EMPTY:
 		case GOAL:
-			canMoveUp = true;
+			canMove = true;
 			break;
 		case SOKO:
 		case SOKO_ON_GOAL:
@@ -190,7 +208,7 @@ public class SokoMatrix {
 			throw new IllegalStateException(
 					"Impossible : il y a un état qui ne représente pas un objet!");
 		}
-		return canMoveUp;
+		return canMove;
 	}
 
 	public BufferedReader getBuffLevel(String fileName) {
