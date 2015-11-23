@@ -1,4 +1,4 @@
-package gameSimulator;
+package gameDisplayer;
 
 import java.awt.Image;
 
@@ -6,14 +6,14 @@ import gameGraphics.Simulable;
 import gameGraphics.SokoFenetre;
 import gameStructures.GameMatrix;
 import gameStructures.SokoMatrix;
-import gameSimulator.ImageElement;
+import gameDisplayer.ImageElement;
 
-public class SokoSimulator implements Simulable {
+public class SokoDisplayer implements Simulable {
 
 	private SokoMatrix soko;
 	private SokoFenetre fen;
 
-	public SokoSimulator(SokoMatrix sokoMat, SokoFenetre sokoFen) {
+	public SokoDisplayer(SokoMatrix sokoMat, SokoFenetre sokoFen) {
 		this.soko = sokoMat;
 		this.fen = sokoFen;
 	}

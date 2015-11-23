@@ -1,4 +1,4 @@
-package gameSimulator;
+package gameDisplayer;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

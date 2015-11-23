@@ -27,6 +27,10 @@ public class SokoMatrix {
 		this.initStartMatrix(this.getBuffLevel(levelName));
 		this.reInitCurMat();
 	}
+	
+	public boolean isComplete(){
+		return (this.nbGoal == this.nbGoalOk);
+	}
 
 	public void reInitCurMat() {
 		this.nbGoalOk = this.nbGoalOkStart;

@@ -1,7 +1,7 @@
 package mySokoban;
 
 import gameGraphics.SokoFenetre;
-import gameSimulator.SokoSimulator;
+import gameDisplayer.SokoDisplayer;
 import gameStructures.SokoMatrix;
 
 public class SokoGame {
@@ -9,7 +9,7 @@ public class SokoGame {
 		SokoMatrix game = new SokoMatrix("level10.txt");
 		SokoFenetre window = new SokoFenetre();
 		
-		SokoSimulator simu = new SokoSimulator(game, window);
+		SokoDisplayer simu = new SokoDisplayer(game, window);
 		window.setSimulable(simu);
 		
 		window.display();

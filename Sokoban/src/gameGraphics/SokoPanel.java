@@ -1,6 +1,6 @@
 package gameGraphics;
 
-import gameSimulator.ImageElement;
+import gameDisplayer.ImageElement;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

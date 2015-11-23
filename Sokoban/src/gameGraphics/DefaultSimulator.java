@@ -2,8 +2,8 @@ package gameGraphics;
 
 import gameGraphics.Simulable;
 
-class DefaultSimulator implements Simulable {
-    DefaultSimulator() {
+class DefaultDisplayer implements Simulable {
+    DefaultDisplayer() {
     }
 
     public void display() {

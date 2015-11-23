@@ -1,9 +1,9 @@
 package gameGraphics;
 
-import gameGraphics.DefaultSimulator;
+import gameGraphics.DefaultDisplayer;
 import gameGraphics.Simulable;
 import gameGraphics.SokoPanel;
-import gameSimulator.ImageElement;
+import gameDisplayer.ImageElement;
 import java.awt.BorderLayout;
 import java.awt.Color;
 //import java.awt.Dimension;
@@ -19,7 +19,7 @@ public class SokoFenetre extends JFrame {
     
     private int panelWidth;
     private int panelHeight;
-    private Simulable simulator;
+    private Simulable displayer;
     
     
     public SokoFenetre() {
@@ -27,12 +27,12 @@ public class SokoFenetre extends JFrame {
     }
 
     public SokoFenetre(int width, int height, Color bgColor) {
-        this(width, height, bgColor, new DefaultSimulator());
+        this(width, height, bgColor, new DefaultDisplayer());
     }
 
-    public SokoFenetre(int width, int height, Color bgColor, Simulable simulator) {
+    public SokoFenetre(int width, int height, Color bgColor, Simulable displayer) {
         super("Sokoban - Judith ;)");
-        this.setSimulable(simulator);
+        this.setSimulable(displayer);
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -60,8 +60,8 @@ public class SokoFenetre extends JFrame {
         this.setVisible(true);
     }
 
-    public void setSimulable(Simulable simulator) {
-        this.simulator = simulator;
+    public void setSimulable(Simulable displayer) {
+        this.displayer = displayer;
     }
     
     public SokoPanel getSokoPanel(){
@@ -85,7 +85,7 @@ public class SokoFenetre extends JFrame {
     }
 
     public void display() {
-        this.simulator.display();
+        this.displayer.display();
         this.sokoPanel.repaint();
         this.repaint();
     }
