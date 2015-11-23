@@ -12,8 +12,8 @@ public class SokoMatrix {
 	private int nbGoalOkStart;
 	private int nbGoal;
 	private int nbGoalOk;
-	private int sokoX = -1;
-	private int sokoY = -1;
+	private int sokoI = -1;
+	private int sokoJ = -1;
 
 	public final static int EMPTY = 0;
 	public final static int SOKO = 1;
@@ -27,8 +27,12 @@ public class SokoMatrix {
 		this.initStartMatrix(this.getBuffLevel(levelName));
 		this.reInitCurMat();
 	}
-	
-	public boolean isComplete(){
+
+	public GameMatrix getCurrMat() {
+		return this.curMat;
+	}
+
+	public boolean isComplete() {
 		return (this.nbGoal == this.nbGoalOk);
 	}
 
@@ -39,6 +43,154 @@ public class SokoMatrix {
 				this.curMat.setObj(i, j, this.startMat.getObj(i, j));
 			}
 		}
+	}
+
+	/**
+	 * Déplace le personnage Soko vers le haut si possible, en mettant à jour
+	 * les valeurs de sokoI et sokoJ
+	 */
+	public void moveUp() {
+		if (!this.canMoveUp()) {
+			return;
+		}
+
+		int currObj = this.curMat.getObj(sokoI, sokoJ);
+		int upObj = this.curMat.getObj(sokoI - 1, sokoJ);
+
+		/*
+		 * -EMPTY -SOKO BAG -GOAL GOAL_OK -SOKO_ON_GOAL -WALL
+		 */
+		if (upObj == BAG || upObj == GOAL_OK) {
+			int upUpObj = this.curMat.getObj(sokoI - 2, sokoJ);
+
+			switch (upObj) {
+			case BAG:
+				switch (upUpObj) {
+				case EMPTY:
+					this.curMat.setObj(sokoI - 2, sokoJ, BAG);
+					this.curMat.setObj(sokoI - 1, sokoJ, EMPTY);
+					break;
+				case GOAL:
+					this.curMat.setObj(sokoI - 2, sokoJ, GOAL_OK);
+					this.curMat.setObj(sokoI - 1, sokoJ, EMPTY);
+					this.nbGoalOk++;
+					break;
+				default:
+					throw new IllegalStateException(
+							"Impossible : objet incompatible avec canMoveObjUp() en ("
+									+ (sokoI - 2) + ", " + sokoJ + ")\n"
+									+ "valeur attendue : EMPTY ou GOAL");
+				}
+				break;
+			case GOAL_OK:
+				switch (upUpObj) {
+				case EMPTY:
+					this.curMat.setObj(sokoI - 2, sokoJ, BAG);
+					this.curMat.setObj(sokoI - 1, sokoJ, GOAL);
+					this.nbGoalOk--;
+					break;
+				case GOAL:
+					this.curMat.setObj(sokoI - 2, sokoJ, GOAL_OK);
+					this.curMat.setObj(sokoI - 1, sokoJ, GOAL);
+					break;
+				default:
+					throw new IllegalStateException(
+							"Impossible : objet incompatible avec canMoveObjUp() en ("
+									+ (sokoI - 2) + ", " + sokoJ + ")\n"
+									+ "valeur attendue : EMPTY ou GOAL");
+				}
+				break;
+			default:
+				throw new IllegalStateException("Impossible : objet double");
+			}
+
+		}
+
+		if (currObj == SOKO_ON_GOAL) {
+			this.curMat.setObj(sokoI, sokoJ, GOAL);
+		} else {
+			this.curMat.setObj(sokoI, sokoJ, EMPTY);
+		}
+
+		if (this.curMat.getObj(sokoI - 1, sokoJ) == GOAL) {
+			this.curMat.setObj(sokoI - 1, sokoJ, SOKO_ON_GOAL);
+		} else {
+			this.curMat.setObj(sokoI - 1, sokoJ, SOKO);
+		}
+
+		this.sokoI--;
+	}
+
+	/**
+	 * Procédure pour déterminer si le personnage Soko peut bouger vers le haut
+	 * 
+	 * @return true si Soko peut bouger vers le heut, false sinon
+	 */
+	public boolean canMoveUp() {
+		if (sokoI == 0) {
+			return false;
+		}
+		int upObj = this.curMat.getObj(sokoI - 1, sokoJ);
+
+		boolean canMoveUp;
+
+		switch (upObj) {
+		case WALL:
+			canMoveUp = false;
+			break;
+		case EMPTY:
+		case GOAL:
+			canMoveUp = true;
+			break;
+		case SOKO:
+		case SOKO_ON_GOAL:
+			throw new IllegalStateException(
+					"Impossible : il y a 2 soko sur le plateau !");
+		case BAG:
+		case GOAL_OK:
+			canMoveUp = this.canMoveObjUp(sokoI - 1, sokoJ);
+			break;
+		default:
+			throw new IllegalStateException(
+					"Impossible : il y a un état qui ne représente pas un objet!");
+		}
+
+		return canMoveUp;
+
+	}
+
+	/**
+	 * Procédure pour déterminer si un objet placé aux coordonnées (i,j)
+	 * 
+	 * @return true si l'objet peut être déplacé vers le heut, false sinon
+	 */
+	private boolean canMoveObjUp(int i, int j) {
+		if (i == 0) {
+			return false;
+		}
+		int upObj = this.curMat.getObj(i - 1, j);
+
+		boolean canMoveUp;
+
+		switch (upObj) {
+		case WALL:
+		case BAG:
+		case GOAL_OK:
+			canMoveUp = false;
+			break;
+		case EMPTY:
+		case GOAL:
+			canMoveUp = true;
+			break;
+		case SOKO:
+		case SOKO_ON_GOAL:
+			throw new IllegalStateException(
+					"Impossible : il y a 2 soko sur le plateau !");
+		default:
+			throw new IllegalStateException(
+					"Impossible : il y a un état qui ne représente pas un objet!");
+		}
+		return canMoveUp;
 	}
 
 	public BufferedReader getBuffLevel(String fileName) {
@@ -88,6 +240,8 @@ public class SokoMatrix {
 			int i = 0;
 			int j = 0;
 
+			boolean murRencontre = false;
+
 			boolean widthOK = false;
 
 			currCharInt = buffLevel.read();
@@ -105,6 +259,7 @@ public class SokoMatrix {
 					}
 					i += 1;
 					j = 0;
+					murRencontre = false;
 				} else {
 
 					if (j >= width) {
@@ -121,6 +276,7 @@ public class SokoMatrix {
 					}
 
 					if (currChar == '#') {
+						murRencontre = true;
 						this.startMat.setObj(i, j, WALL);
 					} else if (currChar == '$') {
 						this.startMat.setObj(i, j, BAG);
@@ -134,9 +290,9 @@ public class SokoMatrix {
 						this.nbGoalOkStart += 1;
 					} else if (currChar == '@') {
 						this.startMat.setObj(i, j, SOKO);
-						if (this.sokoX == -1 & this.sokoY == -1) {
-							this.sokoX = i;
-							this.sokoY = j;
+						if (this.sokoI == -1 & this.sokoJ == -1) {
+							this.sokoI = i;
+							this.sokoJ = j;
 						} else {
 							throw new IllegalArgumentException(
 									"Le fichier passé en paramètre est au mauvais"
@@ -145,16 +301,20 @@ public class SokoMatrix {
 					} else if (currChar == '+') {
 						this.startMat.setObj(i, j, SOKO_ON_GOAL);
 						this.nbGoal += 1;
-						if (this.sokoX == -1 & this.sokoY == -1) {
-							this.sokoX = i;
-							this.sokoY = j;
+						if (this.sokoI == -1 & this.sokoJ == -1) {
+							this.sokoI = i;
+							this.sokoJ = j;
 						} else {
 							throw new IllegalArgumentException(
 									"Le fichier passé en paramètre est au mauvais"
 											+ " format : il y a deux Soko (@ ou +)");
 						}
 					} else if (currChar == ' ') {
-						this.startMat.setObj(i, j, EMPTY);
+						if (!murRencontre) {
+							this.startMat.setObj(i, j, WALL);
+						} else {
+							this.startMat.setObj(i, j, EMPTY);
+						}
 					} else {
 						throw new IllegalArgumentException(
 								"Le fichier passé en paramètre est au mauvais"
@@ -188,7 +348,7 @@ public class SokoMatrix {
 								+ ": width incorrect (trop grand)");
 			}
 
-			if (this.sokoX == -1 || this.sokoY == -1) {
+			if (this.sokoI == -1 || this.sokoJ == -1) {
 				throw new IllegalArgumentException(
 						"Le fichier passé en paramètre est au mauvais"
 								+ " format : il n'y a pas de Soko (@)");
@@ -205,10 +365,6 @@ public class SokoMatrix {
 
 		}
 
-	}
-
-	public GameMatrix getCurrMat() {
-		return this.curMat;
 	}
 
 }
