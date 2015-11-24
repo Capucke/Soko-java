@@ -1,8 +1,8 @@
 package gameGraphics;
 
-import gameGraphics.Simulable;
+import gameGraphics.Displayer;
 
-class DefaultDisplayer implements Simulable {
+class DefaultDisplayer implements Displayer {
     DefaultDisplayer() {
     }
 

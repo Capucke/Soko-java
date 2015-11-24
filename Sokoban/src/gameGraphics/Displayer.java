@@ -1,6 +1,6 @@
 package gameGraphics;
 
-public interface Simulable {
+public interface Displayer {
     void display();
 
     void restart();

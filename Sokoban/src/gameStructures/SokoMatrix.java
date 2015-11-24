@@ -14,6 +14,9 @@ public class SokoMatrix {
 	private int nbGoalOk;
 	private int sokoI = -1;
 	private int sokoJ = -1;
+	
+	private final int initSokoI = -1 ;
+	private final int initSokoJ = -1 ;
 
 	public final static int EMPTY = 0;
 	public final static int SOKO = 1;
@@ -38,6 +41,8 @@ public class SokoMatrix {
 
 	public void reInitCurMat() {
 		this.nbGoalOk = this.nbGoalOkStart;
+		this.sokoI = this.initSokoI ;
+		this.sokoJ = this.initSokoJ ;
 		for (int i = 0; i < this.startMat.getNbLines(); i++) {
 			for (int j = 0; j < this.startMat.getNbCol(); j++) {
 				this.curMat.setObj(i, j, this.startMat.getObj(i, j));

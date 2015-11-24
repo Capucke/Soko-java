@@ -9,8 +9,8 @@ public class SokoGame {
 		SokoMatrix game = new SokoMatrix("level10.txt");
 		SokoFenetre window = new SokoFenetre();
 		
-		SokoDisplayer simu = new SokoDisplayer(game, window);
-		window.setSimulable(simu);
+		SokoDisplayer disp = new SokoDisplayer(game, window);
+		window.setDisplayer(disp);
 		
 		window.display();
 		
