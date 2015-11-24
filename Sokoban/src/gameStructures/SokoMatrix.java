@@ -15,8 +15,8 @@ public class SokoMatrix {
 	private int sokoI = -1;
 	private int sokoJ = -1;
 	
-	private final int initSokoI = -1 ;
-	private final int initSokoJ = -1 ;
+	private int initSokoI = -1 ;
+	private int initSokoJ = -1 ;
 
 	public final static int EMPTY = 0;
 	public final static int SOKO = 1;
@@ -313,9 +313,9 @@ public class SokoMatrix {
 						this.nbGoalOkStart += 1;
 					} else if (currChar == '@') {
 						this.startMat.setObj(i, j, SOKO);
-						if (this.sokoI == -1 & this.sokoJ == -1) {
-							this.sokoI = i;
-							this.sokoJ = j;
+						if (this.initSokoI == -1 & this.initSokoJ == -1) {
+							this.initSokoI = i;
+							this.initSokoJ = j;
 						} else {
 							throw new IllegalArgumentException(
 									"Le fichier passé en paramètre est au mauvais"
@@ -324,9 +324,9 @@ public class SokoMatrix {
 					} else if (currChar == '+') {
 						this.startMat.setObj(i, j, SOKO_ON_GOAL);
 						this.nbGoal += 1;
-						if (this.sokoI == -1 & this.sokoJ == -1) {
-							this.sokoI = i;
-							this.sokoJ = j;
+						if (this.initSokoI == -1 & this.initSokoJ == -1) {
+							this.initSokoI = i;
+							this.initSokoJ = j;
 						} else {
 							throw new IllegalArgumentException(
 									"Le fichier passé en paramètre est au mauvais"
@@ -371,7 +371,7 @@ public class SokoMatrix {
 								+ ": width incorrect (trop grand)");
 			}
 
-			if (this.sokoI == -1 || this.sokoJ == -1) {
+			if (this.initSokoI == -1 || this.initSokoJ == -1) {
 				throw new IllegalArgumentException(
 						"Le fichier passé en paramètre est au mauvais"
 								+ " format : il n'y a pas de Soko (@)");

@@ -56,7 +56,12 @@ public class SokoFenetre extends JFrame {
 		// this.getContentPane().add(this.scrollPane, "Center");
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
+		this.setResizable(true);
+
+		this.sokoPanel.setSize(this.sokoPanel.getWidth(),
+				this.sokoPanel.getHeight());
+
 		this.pack();
 		this.setVisible(true);
 	}

@@ -6,7 +6,7 @@ import gameStructures.SokoMatrix;
 
 public class SokoGame {
 	public static void main(String[] args){
-		SokoMatrix game = new SokoMatrix("level10.txt");
+		SokoMatrix game = new SokoMatrix("level2.txt");
 		SokoFenetre window = new SokoFenetre();
 		
 		SokoDisplayer disp = new SokoDisplayer(game, window);
