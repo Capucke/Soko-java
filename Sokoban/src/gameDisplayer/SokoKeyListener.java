@@ -31,6 +31,12 @@ public class SokoKeyListener implements KeyListener {
 		case KeyEvent.VK_R:
 			this.displayer.restart();
 			break;
+		case KeyEvent.VK_N:
+			this.displayer.nextLevel();
+			break;
+		case KeyEvent.VK_P:
+			this.displayer.previousLevel();
+			break;
 		default:
 			return;
 		}

@@ -43,12 +43,23 @@ public class SokoDisplayer implements Displayer {
 	}
 
 	public void display() {
+		this.fen.reset();
 		GameMatrix currMat = this.soko.getCurrMat();
 		this.drawGame(currMat, this.soko.isComplete());
 	}
 
 	public void restart() {
 		this.soko.reInitCurMat();
+		this.display();
+	}
+	
+	public void nextLevel(){
+		this.soko.nextLevel();
+		this.display();
+	}
+	
+	public void previousLevel(){
+		this.soko.previousLevel();
 		this.display();
 	}
 

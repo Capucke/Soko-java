@@ -4,19 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class SokoMatrix {
 
 	private GameMatrix curMat;
 	private GameMatrix startMat;
+
+	public final static String LEVEL_LISTE = "/levels/listeLevels.txt";
+	public final static ArrayList<String> LEVEL_NAMES = new ListeLevels(LEVEL_LISTE).getLevels();
+	private int currLevel;
+
 	private int nbGoalOkStart;
 	private int nbGoal;
 	private int nbGoalOk;
 	private int sokoI = -1;
 	private int sokoJ = -1;
-	
-	private int initSokoI = -1 ;
-	private int initSokoJ = -1 ;
+	private int initSokoI = -1;
+	private int initSokoJ = -1;
 
 	public final static int EMPTY = 0;
 	public final static int SOKO = 1;
@@ -26,9 +31,43 @@ public class SokoMatrix {
 	public final static int SOKO_ON_GOAL = 5;
 	public final static int WALL = 6;
 
-	public SokoMatrix(String levelName) {
-		this.initStartMatrix(this.getBuffLevel(levelName));
+	public SokoMatrix(int numLevel) {
+		this.currLevel = numLevel;
+		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(numLevel)));
 		this.reInitCurMat();
+		
+		System.out.println("Niveu courant : " + this.currLevel);
+		System.out.println("          Nom : " + LEVEL_NAMES.get(numLevel));
+		
+	}
+
+	private void navigateLevel(int diffLevel) {
+		int nextLevelNum = (currLevel + diffLevel);
+		
+		while (nextLevelNum < 0){
+			nextLevelNum += LEVEL_NAMES.size();
+		}
+		nextLevelNum = nextLevelNum % LEVEL_NAMES.size();
+		
+		this.currLevel = nextLevelNum;
+		this.sokoI = -1;
+		this.sokoJ = -1;
+		this.initSokoI = -1;
+		this.initSokoJ = -1;
+
+		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(nextLevelNum)));
+		this.reInitCurMat();
+		
+		System.out.println("Niveu courant : " + this.currLevel);
+		System.out.println("          Nom : " + LEVEL_NAMES.get(nextLevelNum));
+	}
+
+	public void nextLevel() {
+		this.navigateLevel(1);
+	}
+
+	public void previousLevel() {
+		this.navigateLevel(-1);
 	}
 
 	public GameMatrix getCurrMat() {
@@ -41,8 +80,8 @@ public class SokoMatrix {
 
 	public void reInitCurMat() {
 		this.nbGoalOk = this.nbGoalOkStart;
-		this.sokoI = this.initSokoI ;
-		this.sokoJ = this.initSokoJ ;
+		this.sokoI = this.initSokoI;
+		this.sokoJ = this.initSokoJ;
 		for (int i = 0; i < this.startMat.getNbLines(); i++) {
 			for (int j = 0; j < this.startMat.getNbCol(); j++) {
 				this.curMat.setObj(i, j, this.startMat.getObj(i, j));
