@@ -16,7 +16,7 @@ public class SokoDisplayer implements Displayer {
 	public SokoDisplayer(SokoMatrix sokoMat, SokoFenetre sokoFen) {
 		this.soko = sokoMat;
 		this.fen = sokoFen;
-		this.fen.addKeyListener(new SokoKeyListener(this));
+		this.fen.getSokoPanel().addKeyListener(new SokoKeyListener(this));
 	}
 
 	public void move(int diffI, int diffJ) {

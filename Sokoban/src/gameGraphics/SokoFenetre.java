@@ -12,10 +12,13 @@ import javax.swing.JFrame;
 //import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
+import menus.FrontMenu;
+
 public class SokoFenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// private JScrollPane scrollPane;
 	private SokoPanel sokoPanel;
+	private FrontMenu frontMenu;
 
 	private int panelWidth;
 	private int panelHeight;
@@ -31,6 +34,9 @@ public class SokoFenetre extends JFrame {
 
 	public SokoFenetre(int width, int height, Color bgColor, Displayer displayer) {
 		super("Sokoban - Judith ;)");
+		
+		this.frontMenu = new FrontMenu(Color.MAGENTA, this);
+		
 		this.setDisplayer(displayer);
 
 		try {
@@ -49,11 +55,7 @@ public class SokoFenetre extends JFrame {
 
 		this.getContentPane().setLayout(new BorderLayout());
 
-		// à commenter pour remettre le scroll
-		this.getContentPane().add(this.sokoPanel, "Center");
-
-		// à décommenter pour remettre le scroll
-		// this.getContentPane().add(this.scrollPane, "Center");
+		this.displayFrontMenu();
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -65,6 +67,33 @@ public class SokoFenetre extends JFrame {
 		this.pack();
 		this.setVisible(true);
 	}
+	
+	
+	public void displayFrontMenu(){
+		this.getContentPane().removeAll();
+		this.getContentPane().add(this.frontMenu, "Center");
+		this.frontMenu.setFocusable(true);
+		this.frontMenu.requestFocus();
+		
+		this.pack();
+		this.revalidate();
+//		this.repaint();
+	}
+	
+	public void displayGame(){
+		this.getContentPane().removeAll();
+		// à commenter pour remettre le scroll
+		this.getContentPane().add(this.sokoPanel, "Center");
+
+		// à décommenter pour remettre le scroll
+		// this.getContentPane().add(this.scrollPane, "Center");
+		this.sokoPanel.setFocusable(true);
+		this.sokoPanel.requestFocus();
+		this.pack();
+		this.revalidate();
+//		this.repaint();
+	}
+	
 
 	public void setDisplayer(Displayer displayer) {
 		this.displayer = displayer;
@@ -72,6 +101,10 @@ public class SokoFenetre extends JFrame {
 
 	public SokoPanel getSokoPanel() {
 		return this.sokoPanel;
+	}
+	
+	public FrontMenu getFrontMenu() {
+		return this.frontMenu;
 	}
 
 	public int getPanelWidth() {
