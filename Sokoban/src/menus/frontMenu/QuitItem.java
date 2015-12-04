@@ -1,4 +1,4 @@
-package menus;
+package menus.frontMenu;
 
 import gameGraphics.SokoFenetre;
 

@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 //import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
-import menus.FrontMenu;
+import menus.frontMenu.FrontMenu;
 
 public class SokoFenetre extends JFrame {
 	private static final long serialVersionUID = 1L;

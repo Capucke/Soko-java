@@ -1,8 +1,10 @@
-package menus;
+package menus.frontMenu;
 
 import gameGraphics.SokoFenetre;
 
 import java.awt.Color;
+
+import menus.MenuItem;
 
 public abstract class FrontMenuItem extends MenuItem {
 
