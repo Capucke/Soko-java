@@ -11,8 +11,8 @@ public class SokoGame {
 	private GameMatrix curMat;
 	private GameMatrix startMat;
 
-	public final static String LEVEL_LISTE = "/levels/listeLevels.txt";
-	public final static ArrayList<String> LEVEL_NAMES = new ListeLevels(LEVEL_LISTE).getLevels();
+	// public final static String LEVEL_LISTE = "/levels/listeLevels.txt";
+	public final static ArrayList<String> LEVEL_NAMES = ListeLevels.LISTE_LEVELS;
 	private int currLevel;
 
 	private int nbGoalOkStart;
@@ -35,20 +35,20 @@ public class SokoGame {
 		this.currLevel = numLevel;
 		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(numLevel)));
 		this.reInitCurMat();
-		
+
 		System.out.println("Niveu courant : " + this.currLevel);
 		System.out.println("          Nom : " + LEVEL_NAMES.get(numLevel));
-		
+
 	}
 
 	private void navigateLevel(int diffLevel) {
 		int nextLevelNum = (currLevel + diffLevel);
-		
-		while (nextLevelNum < 0){
+
+		while (nextLevelNum < 0) {
 			nextLevelNum += LEVEL_NAMES.size();
 		}
 		nextLevelNum = nextLevelNum % LEVEL_NAMES.size();
-		
+
 		this.currLevel = nextLevelNum;
 		this.sokoI = -1;
 		this.sokoJ = -1;
@@ -57,7 +57,7 @@ public class SokoGame {
 
 		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(nextLevelNum)));
 		this.reInitCurMat();
-		
+
 		System.out.println("Niveu courant : " + this.currLevel);
 		System.out.println("          Nom : " + LEVEL_NAMES.get(nextLevelNum));
 	}
@@ -256,8 +256,8 @@ public class SokoGame {
 	}
 
 	public BufferedReader getBuffLevel(String fileName) {
-		InputStream fileStream = SokoGame.class
-				.getResourceAsStream("/levels/" + fileName);
+		InputStream fileStream = SokoGame.class.getResourceAsStream("/levels/"
+				+ fileName);
 		BufferedReader buffLevel = new BufferedReader(new InputStreamReader(
 				fileStream));
 

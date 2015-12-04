@@ -7,34 +7,40 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ListeLevels {
-	private ArrayList<String> levelNames;
+	public final static String LEVEL_LISTE_FILE = "/levels/listeLevels.txt";
+	public final static ArrayList<String> LISTE_LEVELS;
+	public final static int NB_LEVELS;
 
-	public ListeLevels(String listePath) {
-		this.levelNames = new ArrayList<String>();
-		this.initLevels(listePath);
-		System.out
-				.println("Liste des niveaux :\n" + this.levelNames.toString());
+	static {
+		LISTE_LEVELS = ListeLevels.getLevels(LEVEL_LISTE_FILE);
+		NB_LEVELS = LISTE_LEVELS.size();
 	}
 
-	private void initLevels(String listePath) {
-		InputStream fileStream = SokoGame.class
-				.getResourceAsStream(listePath);
+	// public ListeLevels(String listePath) {
+	// this.levelNames = new ArrayList<String>();
+	// this.initLevels(listePath);
+	// System.out
+	// .println("Liste des niveaux :\n" + this.levelNames.toString());
+	// }
+
+	private static ArrayList<String> getLevels(String listePath) {
+		ArrayList<String> levelNames = new ArrayList<String>();
+
+		InputStream fileStream = SokoGame.class.getResourceAsStream(listePath);
 		BufferedReader buffLevel = new BufferedReader(new InputStreamReader(
 				fileStream));
 		String currLevelName;
 
 		try {
 			while ((currLevelName = buffLevel.readLine()) != null) {
-				this.levelNames.add(currLevelName);
+				levelNames.add(currLevelName);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-	}
+		return levelNames;
 
-	public ArrayList<String> getLevels() {
-		return this.levelNames;
 	}
 
 }
