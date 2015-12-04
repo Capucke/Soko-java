@@ -1,14 +1,12 @@
 package gameDisplayer;
 
 import java.awt.Image;
-
-import gameGraphics.Displayer;
 import gameGraphics.SokoFenetre;
 import gameStructures.GameMatrix;
 import gameStructures.SokoMatrix;
 import gameDisplayer.ImageElement;
 
-public class SokoDisplayer implements Displayer {
+public class SokoDisplayer {
 
 	private SokoMatrix soko;
 	private SokoFenetre fen;
@@ -17,6 +15,10 @@ public class SokoDisplayer implements Displayer {
 		this.soko = sokoMat;
 		this.fen = sokoFen;
 		this.fen.getSokoPanel().addKeyListener(new SokoKeyListener(this));
+	}
+
+	public void setGame(SokoMatrix game) {
+		this.soko = game;
 	}
 
 	public void move(int diffI, int diffJ) {
@@ -52,13 +54,13 @@ public class SokoDisplayer implements Displayer {
 		this.soko.reInitCurMat();
 		this.display();
 	}
-	
-	public void nextLevel(){
+
+	public void nextLevel() {
 		this.soko.nextLevel();
 		this.display();
 	}
-	
-	public void previousLevel(){
+
+	public void previousLevel() {
 		this.soko.previousLevel();
 		this.display();
 	}
@@ -67,19 +69,22 @@ public class SokoDisplayer implements Displayer {
 		this.fen.addImageElement(new ImageElement(80 * j, 80 * i, img, this.fen
 				.getSokoPanel()));
 	}
-	
-	private void addTxtFin(){
-		int xTxt ;
-		int yTxt ;
-		int txtWidth = ImageElement.TXT_COMPLETE.getWidth(this.fen.getSokoPanel());
-		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen.getSokoPanel());
+
+	private void addTxtFin() {
+		int xTxt;
+		int yTxt;
+		int txtWidth = ImageElement.TXT_COMPLETE.getWidth(this.fen
+				.getSokoPanel());
+		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen
+				.getSokoPanel());
 		int panelWidth = this.fen.getSokoPanel().getWidth();
 		int panelHeight = this.fen.getSokoPanel().getHeight();
-		
-		xTxt = panelWidth/2 - (txtWidth/2);
-		yTxt = panelHeight/2 - (txtHeight/2);
-		
-		this.fen.addImageElement(new ImageElement(xTxt, yTxt, ImageElement.TXT_COMPLETE, this.fen.getSokoPanel()));
+
+		xTxt = panelWidth / 2 - (txtWidth / 2);
+		yTxt = panelHeight / 2 - (txtHeight / 2);
+
+		this.fen.addImageElement(new ImageElement(xTxt, yTxt,
+				ImageElement.TXT_COMPLETE, this.fen.getSokoPanel()));
 	}
 
 	private void drawGame(GameMatrix gameMat, boolean afficheTxtComplete) {
@@ -110,8 +115,8 @@ public class SokoDisplayer implements Displayer {
 
 			}
 		}
-		
-		if (afficheTxtComplete){
+
+		if (afficheTxtComplete) {
 			this.addTxtFin();
 		}
 

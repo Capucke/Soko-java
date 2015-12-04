@@ -16,7 +16,7 @@ public class PlayItem extends FrontMenuItem {
 
 	@Override
 	public void actionIfSelected() {
-		this.fen.displayGame();
+		this.fen.displayGame(2);
 	}
 
 }
