@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class SokoMatrix {
+public class SokoGame {
 
 	private GameMatrix curMat;
 	private GameMatrix startMat;
@@ -31,7 +31,7 @@ public class SokoMatrix {
 	public final static int SOKO_ON_GOAL = 5;
 	public final static int WALL = 6;
 
-	public SokoMatrix(int numLevel) {
+	public SokoGame(int numLevel) {
 		this.currLevel = numLevel;
 		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(numLevel)));
 		this.reInitCurMat();
@@ -256,7 +256,7 @@ public class SokoMatrix {
 	}
 
 	public BufferedReader getBuffLevel(String fileName) {
-		InputStream fileStream = SokoMatrix.class
+		InputStream fileStream = SokoGame.class
 				.getResourceAsStream("/levels/" + fileName);
 		BufferedReader buffLevel = new BufferedReader(new InputStreamReader(
 				fileStream));
@@ -289,8 +289,8 @@ public class SokoMatrix {
 			}
 			int height = Integer.parseInt(heightString);
 
-			this.curMat = new GameMatrix(width, height, SokoMatrix.WALL + 1);
-			this.startMat = new GameMatrix(width, height, SokoMatrix.WALL + 1);
+			this.curMat = new GameMatrix(width, height, SokoGame.WALL + 1);
+			this.startMat = new GameMatrix(width, height, SokoGame.WALL + 1);
 			this.nbGoal = 0;
 			this.nbGoalOk = 0;
 			this.nbGoalOkStart = 0;

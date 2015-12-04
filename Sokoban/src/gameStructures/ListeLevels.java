@@ -17,7 +17,7 @@ public class ListeLevels {
 	}
 
 	private void initLevels(String listePath) {
-		InputStream fileStream = SokoMatrix.class
+		InputStream fileStream = SokoGame.class
 				.getResourceAsStream(listePath);
 		BufferedReader buffLevel = new BufferedReader(new InputStreamReader(
 				fileStream));

@@ -3,7 +3,7 @@ package gameGraphics;
 //import gameGraphics.DefaultDisplayer;
 //import gameGraphics.Displayer;
 import gameGraphics.SokoPanel;
-import gameStructures.SokoMatrix;
+import gameStructures.SokoGame;
 import gameDisplayer.ImageElement;
 import gameDisplayer.SokoDisplayer;
 
@@ -114,11 +114,11 @@ public class SokoFenetre extends JFrame {
 	}
 
 	public void setGame(int numLevel) {
-		SokoMatrix game = new SokoMatrix(numLevel);
+		SokoGame game = new SokoGame(numLevel);
 		this.sokoDisplayer.setGame(game);
 	}
 	
-	public void setGame(SokoMatrix game) {
+	public void setGame(SokoGame game) {
 		this.sokoDisplayer.setGame(game);
 	}
 
@@ -126,12 +126,12 @@ public class SokoFenetre extends JFrame {
 		this.sokoDisplayer = sokoDispl;
 	}
 	
-	public void setDisplayer(SokoMatrix soko) {
+	public void setDisplayer(SokoGame soko) {
 		this.sokoDisplayer = new SokoDisplayer(soko, this);
 	}
 	
 	public void setDisplayer(int numLevel) {
-		SokoMatrix game = new SokoMatrix(numLevel);
+		SokoGame game = new SokoGame(numLevel);
 		this.setDisplayer(game);
 	}
 

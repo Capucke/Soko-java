@@ -2,7 +2,7 @@ package mySokoban;
 
 import gameGraphics.SokoFenetre;
 
-public class SokoGame {
+public class TestSoko {
 	public static void main(String[] args){		
 		SokoFenetre window = new SokoFenetre();
 	  }

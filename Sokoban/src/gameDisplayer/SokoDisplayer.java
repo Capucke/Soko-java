@@ -3,21 +3,21 @@ package gameDisplayer;
 import java.awt.Image;
 import gameGraphics.SokoFenetre;
 import gameStructures.GameMatrix;
-import gameStructures.SokoMatrix;
+import gameStructures.SokoGame;
 import gameDisplayer.ImageElement;
 
 public class SokoDisplayer {
 
-	private SokoMatrix soko;
+	private SokoGame soko;
 	private SokoFenetre fen;
 
-	public SokoDisplayer(SokoMatrix sokoMat, SokoFenetre sokoFen) {
+	public SokoDisplayer(SokoGame sokoMat, SokoFenetre sokoFen) {
 		this.soko = sokoMat;
 		this.fen = sokoFen;
 		this.fen.getSokoPanel().addKeyListener(new SokoKeyListener(this));
 	}
 
-	public void setGame(SokoMatrix game) {
+	public void setGame(SokoGame game) {
 		this.soko = game;
 	}
 
@@ -94,20 +94,20 @@ public class SokoDisplayer {
 			for (int j = 0; j < gameMat.getNbCol(); j++) {
 				temp = gameMat.getObj(i, j);
 
-				if (temp == SokoMatrix.WALL) {
+				if (temp == SokoGame.WALL) {
 					this.addImg(i, j, ImageElement.WALL_IMG);
 				} else {
 					this.addImg(i, j, ImageElement.EMPTY_IMG);
 
-					if (temp == SokoMatrix.GOAL || temp == SokoMatrix.GOAL_OK
-							|| temp == SokoMatrix.SOKO_ON_GOAL) {
+					if (temp == SokoGame.GOAL || temp == SokoGame.GOAL_OK
+							|| temp == SokoGame.SOKO_ON_GOAL) {
 						this.addImg(i, j, ImageElement.GOAL_IMG);
 					}
-					if (temp == SokoMatrix.BAG || temp == SokoMatrix.GOAL_OK) {
+					if (temp == SokoGame.BAG || temp == SokoGame.GOAL_OK) {
 						this.addImg(i, j, ImageElement.BAG_IMG);
 					}
-					if (temp == SokoMatrix.SOKO
-							|| temp == SokoMatrix.SOKO_ON_GOAL) {
+					if (temp == SokoGame.SOKO
+							|| temp == SokoGame.SOKO_ON_GOAL) {
 						this.addImg(i, j, ImageElement.SOKO_IMG);
 					}
 
