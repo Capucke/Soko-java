@@ -7,16 +7,14 @@ import java.awt.Color;
 public class QuitItem extends FrontMenuItem {
 
 	private static final long serialVersionUID = 5L;
-	private SokoFenetre fen ;
 
-	public QuitItem(Color bg, SokoFenetre sokoFen, boolean isSelected) {
-		super(bg, "QUITTER", isSelected);
-		this.fen = sokoFen;
+	public QuitItem(SokoFenetre sokoFen, Color bg, boolean isSelected) {
+		super(sokoFen, bg, "QUITTER", isSelected);
 	}
 
 	@Override
 	public void actionIfSelected() {
-		this.fen.dispose();
+		this.getFenetre().dispose();
 	}
 
 }

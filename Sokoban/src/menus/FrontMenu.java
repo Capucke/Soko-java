@@ -43,8 +43,8 @@ public class FrontMenu extends JPanel {
 		this.itemListe = new ArrayList<FrontMenuItem>(2);
 		this.selectedItem = 0;
 
-		FrontMenuItem play = new PlayItem(this.getBackground(), this.fen, true);
-		FrontMenuItem quit = new QuitItem(this.getBackground(), this.fen, false);
+		FrontMenuItem play = new PlayItem(this.fen, this.getBackground(), true);
+		FrontMenuItem quit = new QuitItem(this.fen, this.getBackground(), false);
 
 		this.itemListe.add(play);
 		this.itemListe.add(quit);

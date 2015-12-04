@@ -1,5 +1,7 @@
 package menus;
 
+import gameGraphics.SokoFenetre;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,15 +28,18 @@ public abstract class MenuItem extends JPanel {
 	private String texte;
 	private boolean isSelected;
 	private int txtSize;
+	
+	private SokoFenetre fen ;
 
-	public MenuItem(Color bg, Color txtCol, Color selectCol, String txt,
+	public MenuItem(SokoFenetre sokoFen, Color bg, Color txtCol, Color selectCol, String txt,
 			int size) {
-		this(bg, txtCol, selectCol, txt, size, false);
+		this(sokoFen, bg, txtCol, selectCol, txt, size, false);
 	}
 
-	public MenuItem(Color bg, Color txtCol, Color selectCol, String txt,
+	public MenuItem(SokoFenetre sokoFen, Color bg, Color txtCol, Color selectCol, String txt,
 			int size, boolean selected) {
 		super();
+		this.fen = sokoFen;
 		this.setBackground(bg);
 		this.normalTxtColor = txtCol;
 		this.selectTxtColor = selectCol;
@@ -65,6 +70,10 @@ public abstract class MenuItem extends JPanel {
 	private int getTxtHeight() {
 		double h = this.getTxtRect().getHeight();
 		return (int) (3 * h / 2);
+	}
+	
+	public SokoFenetre getFenetre(){
+		return this.fen;
 	}
 
 	@Override
