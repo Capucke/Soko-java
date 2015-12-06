@@ -9,15 +9,10 @@ public class LevelMenuKeyListener implements KeyListener {
 	private LevelMenu levelMenu;
 	private PagesMenu menuPages;
 
-	// private ArrayList<LevelMenuItem> levelListe;
-	// private ArrayList<PageMenuItem> pageListe;
-
 	private LevelMenuItem[][][] levelMatrix;
 	/*
-	 * levelMatrix[i][j][p] : - ligne i - colonne j - page p
+	 * levelMatrix[p][i][j] : - page p - ligne i - colonne j
 	 */
-
-	// private int selectedLevel;
 
 	private int selectedPage;
 	private int selectedLine;
@@ -39,22 +34,22 @@ public class LevelMenuKeyListener implements KeyListener {
 		int nbItemPerCol = this.levelMenu.getNbLevelPerCol();
 
 		this.nbPages = levels.size() / (nbItemPerCol * nbItemPerLine) + 1;
-		this.levelMatrix = new LevelMenuItem[nbItemPerCol][nbItemPerLine][nbPages];
+		this.levelMatrix = new LevelMenuItem[nbPages][nbItemPerCol][nbItemPerLine];
+		this.selectedPage = 0;
 		this.selectedLine = 0;
 		this.selectedCol = 0;
-		this.selectedPage = 0;
 
 		int i = 0;
+		int curPage = 0;
 		int curLine = 0;
 		int curCol = 0;
-		int curPage = 0;
 		while (i < levels.size()) {
 			curPage = i / (nbItemPerCol * nbItemPerLine);
 			curLine = (i - (curPage * nbItemPerCol * nbItemPerLine))
 					/ nbItemPerLine;
 			curCol = i % nbItemPerLine;
-			this.levelMatrix[curLine][curCol][curPage] = levels.get(i);
-			this.levelMatrix[curLine][curCol][curPage].setSelected(false);
+			this.levelMatrix[curPage][curLine][curCol] = levels.get(i);
+			this.levelMatrix[curPage][curLine][curCol].setSelected(false);
 			i++;
 		}
 		this.lastItemPage = curPage;
@@ -65,51 +60,63 @@ public class LevelMenuKeyListener implements KeyListener {
 
 	}
 
-	private int switchPage(int wantedPage) {
-		int nbItemPerPage = this.levelMenu.getNbLevelPerLine()
-				* this.levelMenu.getNbLevelPerCol();
-		int newPage = this.menuPages.switchPage(wantedPage, nbItemPerPage);
-		this.levelMenu.switchPage(newPage);
-		return newPage;
-	}
+	// private int switchPage(int wantedPage) {
+	// int nbItemPerPage = this.levelMenu.getNbLevelPerLine()
+	// * this.levelMenu.getNbLevelPerCol();
+	// int newPage = this.menuPages.switchPage(wantedPage, nbItemPerPage);
+	// this.levelMenu.switchPage(newPage);
+	// return newPage;
+	// }
 
-	private void switchselectedLevel(int newSelectedLine, int newSelectedCol,
-			int newSelectedPage) {
+	private void switchSelectedLevel(int wantedPage, int wantedLine,
+			int wantedCol) {
 
 		int oldSelectedPage = this.selectedPage;
 		int oldSelectedLine = this.selectedLine;
 		int oldSelectedCol = this.selectedCol;
 
-		if (newSelectedPage == this.selectedPage) {
-			this.levelMatrix[this.selectedLine][this.selectedCol][this.selectedPage]
-					.repaint();
-			this.levelMatrix[newSelectedLine][newSelectedCol][newSelectedPage]
-					.repaint();
+		int nbItemPerPage = this.levelMenu.getNbLevelPerLine()
+				* this.levelMenu.getNbLevelPerCol();
+
+		int newSelectedPage = this.menuPages.switchPage(wantedPage,
+				nbItemPerPage);
+
+		if (newSelectedPage == this.lastItemPage
+				& ((wantedLine == this.lastItemLine & wantedCol > this.lastItemCol) || wantedLine > this.lastItemLine)) {
+			this.selectedPage = this.menuPages.switchPage(0, nbItemPerPage);
+			this.selectedLine = 0;
+			this.selectedCol = 0;
 		} else {
-			newSelectedPage = this.switchPage(newSelectedPage);
+			this.selectedPage = newSelectedPage;
+			this.selectedLine = wantedLine;
+			this.selectedCol = wantedCol;
 		}
 
-		this.selectedLine = newSelectedLine;
-		this.selectedCol = newSelectedCol;
-		this.selectedPage = newSelectedPage;
+		if (this.selectedPage != oldSelectedPage) {
+			this.levelMenu.switchPage(this.selectedPage);
+		}
 
-		this.levelMatrix[oldSelectedLine][oldSelectedCol][oldSelectedPage]
+		this.levelMatrix[oldSelectedPage][oldSelectedLine][oldSelectedCol]
 				.setSelected(false);
-		this.levelMatrix[this.selectedLine][this.selectedCol][this.selectedPage]
+		this.levelMatrix[this.selectedPage][this.selectedLine][this.selectedCol]
 				.setSelected(true);
+		this.levelMatrix[oldSelectedPage][oldSelectedLine][oldSelectedCol]
+				.repaint();
+		this.levelMatrix[this.selectedPage][this.selectedLine][this.selectedCol]
+				.repaint();
 
 		this.levelMenu.revalidate();
 		this.levelMenu.repaint();
 	}
 
-	private void switchselectedLevel(int verticalDiff, int horizontalDiff) {
+	private void switchSelectedLevel(int verticalDiff, int horizontalDiff) {
+		int oldSelectedPage = this.selectedPage;
 		int oldSelectedLine = this.selectedLine;
 		int oldSelectedCol = this.selectedCol;
-		int oldSelectedPage = this.selectedPage;
 
+		int newSelectedPage = this.selectedPage;
 		int newSelectedLine = this.selectedLine;
 		int newSelectedCol = this.selectedCol;
-		int newSelectedPage = this.selectedPage;
 
 		int nbItemTotal = this.levelMenu.getLevelListe().size();
 
@@ -119,33 +126,35 @@ public class LevelMenuKeyListener implements KeyListener {
 		if (verticalDiff == 0) {
 			// déplacement horizontal : level := level + horizonntalDiff
 
-			// if ((horizontalDiff <= 0 & (oldSelectedCol >= -horizontalDiff))
-			// || (horizontalDiff > 0 & (oldSelectedCol <= (nbItemPerLine - 1)
-			// - horizontalDiff))) {
-			// // opération simple
-			// newSelectedCol = oldSelectedCol + horizontalDiff;
-			//
-			// } else {
-			// on recherche le niveau directement suivant/précédent (quitte
-			// à
-			// changer de ligne ou de page
-			int nbItemPerPage = nbItemPerLine * nbItemPerCol;
-			int index = (oldSelectedPage * nbItemPerPage)
-					+ (oldSelectedLine * nbItemPerLine)
-					+ (oldSelectedCol % nbItemPerLine);
+			if ((horizontalDiff <= 0 & (oldSelectedCol >= -horizontalDiff))
+					|| (horizontalDiff > 0 & (oldSelectedCol <= (nbItemPerLine - 1)
+							- horizontalDiff))) {
+				// opération simple
+				newSelectedCol = oldSelectedCol + horizontalDiff;
 
-			int newIndex = index + horizontalDiff;
-			while (newIndex < 0) {
-				newIndex += nbItemTotal;
-			}
-			while (newIndex >= nbItemTotal) {
-				newIndex -= nbItemTotal;
-			}
+			} else {
+				// on recherche le niveau directement suivant/précédent (quitte
+				// à
+				// changer de ligne ou de page
+				int nbItemPerPage = nbItemPerLine * nbItemPerCol;
+				int index = (oldSelectedPage * nbItemPerPage)
+						+ (oldSelectedLine * nbItemPerLine)
+						+ (oldSelectedCol % nbItemPerLine);
 
-			newSelectedPage = newIndex / nbItemPerPage;
-			newSelectedLine = (newIndex - (newSelectedPage * nbItemPerPage))
-					/ nbItemPerLine;
-			newSelectedCol = newIndex % nbItemPerLine;
+				int newIndex = index + horizontalDiff;
+
+				while (newIndex < 0) {
+					newIndex += nbItemTotal;
+				}
+				while (newIndex >= nbItemTotal) {
+					newIndex -= nbItemTotal;
+				}
+
+				newSelectedPage = newIndex / nbItemPerPage;
+				newSelectedLine = (newIndex - (newSelectedPage * nbItemPerPage))
+						/ nbItemPerLine;
+				newSelectedCol = newIndex % nbItemPerLine;
+			}
 
 		} else if (horizontalDiff == 0) {
 			// déplacement vertial : level := level + verticalDiff*nbItemPerLine
@@ -157,7 +166,8 @@ public class LevelMenuKeyListener implements KeyListener {
 				// on est sur une colonne qui contient lastItemLine éléments
 				nbItemInCurCol = this.lastItemLine + 1;
 			} else {
-				// on est sur une colonne qui contient (lastItemLine - 1) éléments
+				// on est sur une colonne qui contient (lastItemLine - 1)
+				// éléments
 				nbItemInCurCol = this.lastItemLine;
 			}
 			newSelectedLine = (oldSelectedLine + verticalDiff + nbItemInCurCol)
@@ -168,8 +178,8 @@ public class LevelMenuKeyListener implements KeyListener {
 					"Problème déplacement horizontal ET vertical dans le menu");
 		}
 
-		this.switchselectedLevel(newSelectedLine, newSelectedCol,
-				newSelectedPage);
+		this.switchSelectedLevel(newSelectedPage, newSelectedLine,
+				newSelectedCol);
 	}
 
 	@Override
@@ -178,25 +188,25 @@ public class LevelMenuKeyListener implements KeyListener {
 
 		switch (key) {
 		case KeyEvent.VK_UP:
-			this.switchselectedLevel(-1, 0);
+			this.switchSelectedLevel(-1, 0);
 			break;
 		case KeyEvent.VK_DOWN:
-			this.switchselectedLevel(1, 0);
+			this.switchSelectedLevel(1, 0);
 			break;
 		case KeyEvent.VK_LEFT:
-			this.switchselectedLevel(0, -1);
+			this.switchSelectedLevel(0, -1);
 			break;
 		case KeyEvent.VK_RIGHT:
-			this.switchselectedLevel(0, 1);
+			this.switchSelectedLevel(0, 1);
 			break;
 		case KeyEvent.VK_N:
-			this.switchselectedLevel(0, 0, this.selectedPage + 1);
+			this.switchSelectedLevel(this.selectedPage + 1, 0, 0);
 			break;
 		case KeyEvent.VK_P:
-			this.switchselectedLevel(0, 0, this.selectedPage - 1);
+			this.switchSelectedLevel(this.selectedPage - 1, 0, 0);
 			break;
 		case KeyEvent.VK_ENTER:
-			this.levelMatrix[this.selectedLine][this.selectedCol][this.selectedPage]
+			this.levelMatrix[this.selectedPage][this.selectedLine][this.selectedCol]
 					.actionIfSelected();
 			break;
 		default:
