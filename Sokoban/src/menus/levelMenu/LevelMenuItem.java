@@ -15,14 +15,18 @@ public class LevelMenuItem extends MenuItem {
 
 	private int numeroLevel;
 
-	public LevelMenuItem(SokoFenetre sokoFen, Color bg, String txt, int num) {
-		this(sokoFen, bg, txt, num, false);
+	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num) {
+		this(sokoFen, bg, num, false);
 	}
 
-	public LevelMenuItem(SokoFenetre sokoFen, Color bg, String txt, int num,
+	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num,
 			boolean selected) {
-		super(sokoFen, bg, normalColor, selectedColor, txt, 55, selected);
+		super(sokoFen, bg, normalColor, selectedColor, new String("Niveau " + (num +1)), 40, selected);
 		this.numeroLevel = num;
+	}
+	
+	public String getName(){
+		return Integer.toString(this.numeroLevel + 1);
 	}
 
 	@Override

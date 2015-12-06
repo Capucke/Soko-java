@@ -1,11 +1,8 @@
 package menus.frontMenu;
 
 import gameGraphics.SokoFenetre;
-
 import java.awt.Color;
 import java.util.ArrayList;
-//import java.awt.FlowLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -22,10 +19,6 @@ public class FrontMenu extends JPanel {
 
 		this.setBackground(bg);
 		this.fen = window;
-
-		// FlowLayout flow = new FlowLayout(FlowLayout.CENTER);
-		// flow.setAlignOnBaseline(true);
-		// this.setLayout(flow);
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

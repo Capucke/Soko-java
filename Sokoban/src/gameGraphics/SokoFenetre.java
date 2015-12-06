@@ -15,13 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import menus.frontMenu.FrontMenu;
+import menus.levelMenu.FullLevelMenu;
+//import menus.levelMenu.LevelMenu;
 
 public class SokoFenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// private JScrollPane scrollPane;
 	private SokoPanel sokoPanel;
 	private FrontMenu frontMenu;
-//	private LevelMenu levelMenu;
+	private FullLevelMenu levelMenu;
 
 	private int panelWidth;
 	private int panelHeight;
@@ -40,7 +42,7 @@ public class SokoFenetre extends JFrame {
 		super("Sokoban - Judith ;)");
 
 		this.frontMenu = new FrontMenu(Color.MAGENTA, this);
-//		this.levelMenu = new LevelMenu(Color.MAGENTA, this);
+		this.levelMenu = new FullLevelMenu(Color.GREEN, this);
 		
 
 		try {
@@ -83,16 +85,16 @@ public class SokoFenetre extends JFrame {
 		// this.repaint();
 	}
 
-//	public void displayLevelMenu() {
-//		this.getContentPane().removeAll();
-//		this.getContentPane().add(this.levelMenu, "Center");
-//		this.levelMenu.setFocusable(true);
-//		this.levelMenu.requestFocus();
-//
-//		this.pack();
-//		this.revalidate();
-//		// this.repaint();
-//	}
+	public void displayLevelMenu() {
+		this.getContentPane().removeAll();
+		this.getContentPane().add(this.levelMenu, "Center");
+		this.levelMenu.setFocusable(true);
+		this.levelMenu.requestFocus();
+
+		this.pack();
+		this.revalidate();
+		// this.repaint();
+	}
 
 	public void displayGame(int numLevel) {
 		this.setDisplayer(numLevel);

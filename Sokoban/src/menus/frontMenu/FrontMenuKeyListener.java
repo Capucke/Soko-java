@@ -13,28 +13,35 @@ public class FrontMenuKeyListener implements KeyListener {
 		this.itemListe = items ;
 		this.selectedItem = numSelect;
 	}
+	
+	private void switchSelectedItem(int verticalDiff){
+		/*
+		 * verticalDiff < 0 : on sélectionne un élément plus haut
+		 * verticalDiff > 0 : on sélectionne un élément plus bas
+		 */
+		int newSelectedItem;
+		int oldSelectedItem;
+		
+		oldSelectedItem = this.selectedItem ;
+		newSelectedItem = (this.itemListe.size() + this.selectedItem + verticalDiff)%this.itemListe.size();
+		
+		this.itemListe.get(oldSelectedItem).setSelected(false);
+		this.itemListe.get(newSelectedItem).setSelected(true);
+		this.itemListe.get(oldSelectedItem).repaint();
+		this.itemListe.get(newSelectedItem).repaint();	
+		this.selectedItem = newSelectedItem;
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		int newSelectedItem;
 		
 		switch (key) {
 		case KeyEvent.VK_UP:
-			this.itemListe.get(selectedItem).setSelected(false);
-			this.itemListe.get(selectedItem).repaint();
-			newSelectedItem = (this.itemListe.size() + this.selectedItem - 1)%this.itemListe.size();
-			this.selectedItem = newSelectedItem;
-			this.itemListe.get(selectedItem).setSelected(true);
-			this.itemListe.get(selectedItem).repaint();
+			this.switchSelectedItem(-1);
 			break;
 		case KeyEvent.VK_DOWN:
-			this.itemListe.get(selectedItem).setSelected(false);
-			this.itemListe.get(selectedItem).repaint();
-			newSelectedItem = (this.selectedItem + 1)%this.itemListe.size();
-			this.selectedItem = newSelectedItem;
-			this.itemListe.get(selectedItem).setSelected(true);
-			this.itemListe.get(selectedItem).repaint();
+			this.switchSelectedItem(1);
 			break;
 		case KeyEvent.VK_ENTER:
 			this.itemListe.get(selectedItem).actionIfSelected();
