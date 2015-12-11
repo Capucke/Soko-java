@@ -21,13 +21,13 @@ public class ImageElement {
 	public final static Image EXPL_JEU;
 
 	static {
-		BAG_IMG = ImageElement.chargeImg("/img/final/camera.png");
-		WALL_IMG = ImageElement.chargeImg("/img/final/vide.png");
-		SOKO_IMG = ImageElement.chargeImg("/img/final/peach.png");
-		GOAL_IMG = ImageElement.chargeImg("/img/final/clap.png");
-		EMPTY_IMG = ImageElement.chargeImg("/img/final/parquet.jpg");
-		TXT_COMPLETE = ImageElement.chargeImg("/img/final/texte_complete.png");
-		EXPL_JEU = ImageElement.chargeImg("/img/final/texte_complete.png");
+		BAG_IMG = ImageElement.chargeImg("/img/camera.png");
+		WALL_IMG = ImageElement.chargeImg("/img/vide.png");
+		SOKO_IMG = ImageElement.chargeImg("/img/peach.png");
+		GOAL_IMG = ImageElement.chargeImg("/img/clap.png");
+		EMPTY_IMG = ImageElement.chargeImg("/img/parquet.jpg");
+		TXT_COMPLETE = ImageElement.chargeImg("/img/texte_complete.png");
+		EXPL_JEU = ImageElement.chargeImg("/img/texte_complete.png");
 	}
 
 	public ImageElement(int theX, int theY, Image img, ImageObserver obs) {

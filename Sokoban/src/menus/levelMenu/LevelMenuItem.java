@@ -14,6 +14,7 @@ public class LevelMenuItem extends MenuItem {
 	public final static Color normalColor = new Color(109, 0, 217);
 
 	private int numeroLevel;
+	private final static int txtSize = 35;
 
 	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num) {
 		this(sokoFen, bg, num, false);
@@ -21,7 +22,7 @@ public class LevelMenuItem extends MenuItem {
 
 	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num,
 			boolean selected) {
-		super(sokoFen, bg, normalColor, selectedColor, new String("Niveau " + (num +1)), 40, selected);
+		super(sokoFen, bg, normalColor, selectedColor, new String("Niveau " + (num +1)), LevelMenuItem.txtSize, selected);
 		this.numeroLevel = num;
 	}
 	

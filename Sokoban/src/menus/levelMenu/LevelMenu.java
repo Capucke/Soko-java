@@ -22,7 +22,7 @@ public class LevelMenu extends JPanel {
 	// private int selectedItem;
 
 	private int nbLevelPerLine = 3;
-	private int nbLevelPerCol = 2;
+	private int nbLevelPerCol = 3;
 
 	public LevelMenu(Color bg, SokoFenetre window) {
 		super();

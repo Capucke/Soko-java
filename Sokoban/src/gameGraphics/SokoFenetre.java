@@ -31,7 +31,7 @@ public class SokoFenetre extends JFrame {
 	private SokoDisplayer sokoDisplayer;
 
 	 public SokoFenetre() {
-		 this(800, 800, Color.MAGENTA);
+		 this(800, 800, Color.LIGHT_GRAY);
 	 }
 	 
 	//
@@ -44,8 +44,8 @@ public class SokoFenetre extends JFrame {
 		this.fenWidth = width;
 		this.fenHeight = height;
 
-		this.frontMenu = new FrontMenu(Color.MAGENTA, this);
-		this.levelMenu = new FullLevelMenu(Color.GREEN, this);
+		this.frontMenu = new FrontMenu(bgColor, this);
+		this.levelMenu = new FullLevelMenu(bgColor, this);
 		
 
 		try {

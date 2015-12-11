@@ -163,15 +163,15 @@ public class LevelMenuKeyListener implements KeyListener {
 				// on est sur une page complète
 				nbItemInCurCol = nbItemPerCol;
 			} else if (this.selectedCol <= this.lastItemCol) {
-				// on est sur une colonne qui contient lastItemLine éléments
+				// on est sur une colonne qui contient lastItemLine+1 éléments
 				nbItemInCurCol = this.lastItemLine + 1;
 			} else {
-				// on est sur une colonne qui contient (lastItemLine - 1)
+				// on est sur une colonne qui contient lastItemLine
 				// éléments
 				nbItemInCurCol = this.lastItemLine;
 			}
 			newSelectedLine = (oldSelectedLine + verticalDiff + nbItemInCurCol)
-					% nbItemPerCol;
+					% nbItemInCurCol;
 		} else {
 			// cas horizontalDiff et verticalDiff sont tous les deux != 0
 			throw new IllegalArgumentException(
