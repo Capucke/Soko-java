@@ -1,24 +1,22 @@
 package menus;
 
+import javax.swing.JPanel;
 import gameGraphics.SokoFenetre;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-
-import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.RenderingHints;
 
 public abstract class MenuItem extends JPanel {
 
@@ -35,12 +33,16 @@ public abstract class MenuItem extends JPanel {
 			int size) {
 		this(sokoFen, bg, txtCol, selectCol, txt, size, false);
 	}
-
-	public MenuItem(SokoFenetre sokoFen, Color bg, Color txtCol, Color selectCol, String txt,
+	
+	public MenuItem(SokoFenetre sokoFen, Color txtCol, Color selectCol, String txt,
+			int size) {
+		this(sokoFen, txtCol, selectCol, txt, size, false);
+	}
+	
+	public MenuItem(SokoFenetre sokoFen, Color txtCol, Color selectCol, String txt,
 			int size, boolean selected) {
 		super();
 		this.fen = sokoFen;
-		this.setBackground(bg);
 		this.normalTxtColor = txtCol;
 		this.selectTxtColor = selectCol;
 		this.texte = txt;
@@ -48,6 +50,12 @@ public abstract class MenuItem extends JPanel {
 		this.isSelected = selected;
 		this.setPreferredSize(new Dimension(this.getTxtWidth(), this
 				.getTxtHeight()));
+	}
+
+	public MenuItem(SokoFenetre sokoFen, Color bg, Color txtCol, Color selectCol, String txt,
+			int size, boolean selected) {
+		this(sokoFen, txtCol, selectCol, txt, size, selected);
+		this.setBackground(bg);
 	}
 
 	public void setSelected(boolean selected) {
@@ -60,6 +68,16 @@ public abstract class MenuItem extends JPanel {
 		TextLayout textTl = new TextLayout(this.texte, new Font("Helvetica", 1,
 				this.txtSize), new FontRenderContext(null, false, false));
 		return textTl.getBounds();
+	}
+	
+	protected int realTxtWidth(){
+		double w = this.getTxtRect().getWidth();
+		return (int)w;
+	}
+	
+	protected int realTxtHeight(){
+		double h = this.getTxtRect().getHeight();
+		return (int)h;
 	}
 
 	private int getTxtWidth() {
@@ -75,20 +93,11 @@ public abstract class MenuItem extends JPanel {
 	public SokoFenetre getFenetre(){
 		return this.fen;
 	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-				RenderingHints.VALUE_RENDER_QUALITY);
-
-		Dimension d = getSize();
-		int w = d.width;
-		int h = d.height;
+	
+	public void paintItem(Graphics2D g2d, int x, int y){
+		Dimension dim = this.getSize();
+		int w = (int) dim.getWidth();
+		int h = (int) dim.getHeight();
 
 		TextLayout textTl = new TextLayout(this.texte, new Font("Helvetica", 1,
 				this.txtSize), new FontRenderContext(null, false, false));
@@ -122,8 +131,7 @@ public abstract class MenuItem extends JPanel {
 
 		// Sets the Paint.
 		Paint oldPaint = g2d.getPaint();
-
-		g2d.setPaint(Color.blue);
+//		g2d.setPaint(Color.blue);
 
 		// Sets the Shape.
 		Shape shape = textTl.getOutline(textAt);
@@ -133,7 +141,7 @@ public abstract class MenuItem extends JPanel {
 		AffineTransform saveXform = g2d.getTransform();
 		AffineTransform toCenterAt = new AffineTransform();
 		toCenterAt.concatenate(at);
-		toCenterAt.translate(-(r.width / 2), -(r.height / 2));
+		toCenterAt.translate(x - ((int) r.getWidth()/2 ), y - ((int) r.getHeight()/2 ));
 
 		g2d.transform(toCenterAt);
 
@@ -151,6 +159,17 @@ public abstract class MenuItem extends JPanel {
 		g2d.setStroke(oldStroke);
 		g2d.setPaint(oldPaint);
 		g2d.setTransform(saveXform);
-
 	}
+
+//	@Override
+//	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//
+//		Graphics2D g2d = (Graphics2D) g;
+//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_ON);
+//		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+//				RenderingHints.VALUE_RENDER_QUALITY);
+//	}
+	
 }

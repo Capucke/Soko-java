@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 public class FrontMenuKeyListener implements KeyListener {
 	
-	private ArrayList<FrontMenuItem> itemListe;
-	private int selectedItem;
+	private FrontMenu menu;
 	
-	public FrontMenuKeyListener(ArrayList<FrontMenuItem> items, int numSelect){
-		this.itemListe = items ;
-		this.selectedItem = numSelect;
+//	private ArrayList<FrontMenuItem> itemListe;
+//	private int selectedItem;
+	
+	public FrontMenuKeyListener(FrontMenu frontMenu, ArrayList<FrontMenuItem> items, int numSelect){
+		this.menu = frontMenu;
+//		this.itemListe = items ;
+//		this.selectedItem = numSelect;
 	}
 	
 	private void switchSelectedItem(int verticalDiff){
@@ -19,17 +22,18 @@ public class FrontMenuKeyListener implements KeyListener {
 		 * verticalDiff < 0 : on sélectionne un élément plus haut
 		 * verticalDiff > 0 : on sélectionne un élément plus bas
 		 */
-		int newSelectedItem;
-		int oldSelectedItem;
+		int newSelectedItemNum;
+		int oldSelectedItemNum;
 		
-		oldSelectedItem = this.selectedItem ;
-		newSelectedItem = (this.itemListe.size() + this.selectedItem + verticalDiff)%this.itemListe.size();
+		oldSelectedItemNum = this.menu.getSelectedItemNum() ;
+		newSelectedItemNum = (this.menu.getNbItems() + oldSelectedItemNum + verticalDiff)%this.menu.getNbItems();
 		
-		this.itemListe.get(oldSelectedItem).setSelected(false);
-		this.itemListe.get(newSelectedItem).setSelected(true);
-		this.itemListe.get(oldSelectedItem).repaint();
-		this.itemListe.get(newSelectedItem).repaint();	
-		this.selectedItem = newSelectedItem;
+		this.menu.setItemSelected(oldSelectedItemNum, false);
+		this.menu.setItemSelected(newSelectedItemNum, true);
+		
+		this.menu.setSelectedItemNum(newSelectedItemNum);
+		
+		this.menu.repaint();
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class FrontMenuKeyListener implements KeyListener {
 			this.switchSelectedItem(1);
 			break;
 		case KeyEvent.VK_ENTER:
-			this.itemListe.get(selectedItem).actionIfSelected();
+			this.menu.getItem(this.menu.getSelectedItemNum()).actionIfSelected();
 			break;
 		default:
 			return;

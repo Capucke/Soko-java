@@ -24,10 +24,14 @@ public class SokoPanel extends JPanel {
 	}
 
 	protected void reset() {
+		this.clearImageList();
+		this.repaint();
+	}
+	
+	protected void clearImageList(){
 		synchronized (this.objets) {
 			this.objets.clear();
 		}
-		this.repaint();
 	}
 
 	protected void addImageElement(ImageElement e) {
@@ -36,24 +40,26 @@ public class SokoPanel extends JPanel {
 		}
 		this.repaint();
 	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setColor(this.getBackground());
-		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-
+	
+	public void paintImgList(Graphics2D g2d){
 		synchronized (this.objets) {
 			for (ImageElement e : this.objets) {
 				e.paint(g2d);
 			}
 		}
-
-		g2d.dispose();
 	}
+
+//	@Override
+//	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		Graphics2D g2d = (Graphics2D) g;
+//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_ON);
+//		g2d.setColor(this.getBackground());
+//		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+//		this.paintImgList(g2d);
+//		g2d.dispose();
+//	}
 
 	public int getSokoPanelWidth(){
 		return this.width;

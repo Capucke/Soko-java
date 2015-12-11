@@ -2,10 +2,10 @@ package gameGraphics;
 
 //import gameGraphics.DefaultDisplayer;
 //import gameGraphics.Displayer;
-import gameGraphics.SokoPanel;
 import gameStructures.SokoGame;
 import gameDisplayer.ImageElement;
 import gameDisplayer.SokoDisplayer;
+import gameDisplayer.SokoGamePanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +21,7 @@ import menus.levelMenu.FullLevelMenu;
 public class SokoFenetre extends JFrame {
 	private static final long serialVersionUID = 2L;
 	// private JScrollPane scrollPane;
-	private SokoPanel sokoPanel;
+	private SokoGamePanel sokoGamePanel;
 	private ExplicationPanel explPanel;
 	private FrontMenu frontMenu;
 	private FullLevelMenu levelMenu;
@@ -44,7 +44,7 @@ public class SokoFenetre extends JFrame {
 		this.fenWidth = width;
 		this.fenHeight = height;
 
-		this.frontMenu = new FrontMenu(bgColor, this);
+		this.frontMenu = new FrontMenu(width, height, bgColor, this);
 		this.levelMenu = new FullLevelMenu(bgColor, this);
 		
 
@@ -55,12 +55,12 @@ public class SokoFenetre extends JFrame {
 		}
 
 		this.explPanel = new ExplicationPanel(200, height, bgColor, this);
-		this.sokoPanel = new SokoPanel(width-200, height, bgColor);
-		// this.scrollPane = new JScrollPane(this.sokoPanel);
+		this.sokoGamePanel = new SokoGamePanel(width-200, height, Color.BLACK);
+		// this.scrollPane = new JScrollPane(this.sokoGamePanel);
 		// this.scrollPane.setPreferredSize(new Dimension(Math.min(800, width),
 		// Math.min(600, height)));
 		
-//		this.sokoPanel.setBackground(bgColor);
+//		this.sokoGamePanel.setBackground(bgColor);
 
 		this.getContentPane().setLayout(new BorderLayout());
 
@@ -70,8 +70,8 @@ public class SokoFenetre extends JFrame {
 
 		this.setResizable(true);
 
-//		this.sokoPanel.setSize(this.sokoPanel.getWidth(),
-//				this.sokoPanel.getHeight());
+//		this.sokoGamePanel.setSize(this.sokoGamePanel.getWidth(),
+//				this.sokoGamePanel.getHeight());
 
 //		this.pack();
 		this.setVisible(true);
@@ -104,16 +104,16 @@ public class SokoFenetre extends JFrame {
 		
 		this.getContentPane().removeAll();
 		// à commenter pour remettre le scroll
-		this.getContentPane().add(this.sokoPanel, "Center");
+		this.getContentPane().add(this.sokoGamePanel, "Center");
 		this.getContentPane().add(this.explPanel, "East");
 
 		// à décommenter pour remettre le scroll
 		// this.getContentPane().add(this.scrollPane, "Center");
-		this.sokoPanel.setFocusable(true);
-		this.sokoPanel.requestFocus();
+		this.sokoGamePanel.setFocusable(true);
+		this.sokoGamePanel.requestFocus();
 		
 		this.sokoDisplayer.display();
-//		this.sokoPanel.repaint();
+//		this.sokoGamePanel.repaint();
 		this.pack();
 		this.revalidate();
 		// this.repaint();
@@ -141,8 +141,8 @@ public class SokoFenetre extends JFrame {
 		this.setDisplayer(game);
 	}
 
-	public SokoPanel getSokoPanel() {
-		return this.sokoPanel;
+	public SokoGamePanel getSokoGamePanel() {
+		return this.sokoGamePanel;
 	}
 
 	public FrontMenu getFrontMenu() {
@@ -158,16 +158,16 @@ public class SokoFenetre extends JFrame {
 	}
 
 	public void addImageElement(ImageElement e) {
-		this.sokoPanel.addImageElement(e);
+		this.sokoGamePanel.addImageElement(e);
 	}
 
 	public void reset() {
-		this.sokoPanel.reset();
+		this.sokoGamePanel.reset();
 	}
 
 //	public void display() {
 //		this.sokoDisplayer.display();
-//		this.sokoPanel.repaint();
+//		this.sokoGamePanel.repaint();
 //		this.repaint();
 //	}
 

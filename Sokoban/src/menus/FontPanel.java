@@ -25,7 +25,7 @@ public class FontPanel extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		setBackground(Color.white);
+//		setBackground(Color.white);
 		int width = getSize().width;
 		int height = getSize().height;
 		Graphics2D g2 = (Graphics2D) g;

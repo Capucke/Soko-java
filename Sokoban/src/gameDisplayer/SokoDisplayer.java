@@ -17,15 +17,16 @@ public class SokoDisplayer {
 	public SokoDisplayer(SokoGame sokoMat, SokoFenetre sokoFen) {
 		this.fen = sokoFen;
 		this.setGame(sokoMat);
-		this.fen.getSokoPanel().addKeyListener(new SokoKeyListener(this));
+		this.fen.getSokoGamePanel().addKeyListener(new SokoKeyListener(this));
 	}
 
 	public void setGame(SokoGame game) {
 		this.soko = game;
-		this.xSokoGame = (this.fen.getSokoPanel().getSokoPanelWidth()/2) - (80 * game.getWidth()/2);
-		this.ySokoGame = (this.fen.getSokoPanel().getSokoPanelHeight()/2) - (80 * game.getHeight()/2);
-		System.out.println("Largeur panel : " + this.fen.getSokoPanel().getWidth());
-		System.out.println(this.xSokoGame);
+	}
+	
+	public void calculOffSet(SokoGame game){
+		this.xSokoGame = (this.fen.getSokoGamePanel().getSokoPanelWidth()/2) - (80 * game.getWidth()/2);
+		this.ySokoGame = (this.fen.getSokoGamePanel().getSokoPanelHeight()/2) - (80 * game.getHeight()/2);
 	}
 
 	public void move(int diffI, int diffJ) {
@@ -53,8 +54,7 @@ public class SokoDisplayer {
 
 	public void display() {
 		this.fen.reset();
-		GameMatrix currMat = this.soko.getCurrMat();
-		this.drawGame(currMat, this.soko.isComplete());
+		this.drawGame(this.soko, this.soko.isComplete());
 	}
 
 	public void restart() {
@@ -74,36 +74,40 @@ public class SokoDisplayer {
 
 	private void addImg(int i, int j, Image img) {
 		this.fen.addImageElement(new ImageElement(80 * j + this.xSokoGame, 80 * i + this.ySokoGame, img, this.fen
-				.getSokoPanel()));
+				.getSokoGamePanel()));
 	}
 
 	private void addTxtFin() {
 		int xTxt;
 		int yTxt;
 		int txtWidth = ImageElement.TXT_COMPLETE.getWidth(this.fen
-				.getSokoPanel());
+				.getSokoGamePanel());
 		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen
-				.getSokoPanel());
-		int panelWidth = this.fen.getSokoPanel().getWidth();
-		int panelHeight = this.fen.getSokoPanel().getHeight();
+				.getSokoGamePanel());
+		int panelWidth = this.fen.getSokoGamePanel().getWidth();
+		int panelHeight = this.fen.getSokoGamePanel().getHeight();
 
 		xTxt = panelWidth / 2 - (txtWidth / 2);
 		yTxt = panelHeight / 2 - (txtHeight / 2);
 
 		this.fen.addImageElement(new ImageElement(xTxt, yTxt,
-				ImageElement.TXT_COMPLETE, this.fen.getSokoPanel()));
+				ImageElement.TXT_COMPLETE, this.fen.getSokoGamePanel()));
 	}
 
-	private void drawGame(GameMatrix gameMat, boolean afficheTxtComplete) {
+	private void drawGame(SokoGame game, boolean afficheTxtComplete) {
+		this.calculOffSet(game);
+		
+		GameMatrix gameMat = game.getCurrMat();
 		int temp;
 
 		for (int i = 0; i < gameMat.getNbLines(); i++) {
 			for (int j = 0; j < gameMat.getNbCol(); j++) {
 				temp = gameMat.getObj(i, j);
 
-				if (temp == SokoGame.WALL) {
-					this.addImg(i, j, ImageElement.WALL_IMG);
-				} else {
+//				if (temp == SokoGame.WALL) {
+//					this.addImg(i, j, ImageElement.WALL_IMG);
+//				} else {
+				if (temp != SokoGame.WALL) {
 					this.addImg(i, j, ImageElement.EMPTY_IMG);
 
 					if (temp == SokoGame.GOAL || temp == SokoGame.GOAL_OK
