@@ -2,13 +2,15 @@ package menus.frontMenu;
 
 import gameGraphics.SokoFenetre;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
+//import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class FrontMenu extends JPanel {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 6L;
 	private SokoFenetre fen;
 
 	private ArrayList<FrontMenuItem> itemListe;
@@ -20,7 +22,8 @@ public class FrontMenu extends JPanel {
 		this.setBackground(bg);
 		this.fen = window;
 
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new GridLayout(2, 1));
 
 		this.initItems();
 
@@ -29,6 +32,8 @@ public class FrontMenu extends JPanel {
 		}
 
 		this.addKeyListener(new FrontMenuKeyListener(this.itemListe, this.selectedItem));
+		
+		this.setPreferredSize(new Dimension(this.fen.getFenWidth(), this.fen.getFenHeight()));
 		
 	}
 

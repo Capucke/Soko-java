@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class FullLevelMenu extends JPanel {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 10L;
 	private SokoFenetre fen;
 
 	private LevelMenu levelPanel;
@@ -41,6 +41,8 @@ public class FullLevelMenu extends JPanel {
 
 		this.addKeyListener(new LevelMenuKeyListener(this.levelPanel,
 				this.pagePanel));
+		
+		this.setPreferredSize(new Dimension(this.fen.getFenWidth(), this.fen.getFenHeight()));
 	}
 
 	public ArrayList<LevelMenuItem> getLevelListe() {

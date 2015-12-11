@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class FontPanel extends JPanel {
 
-	private static final long serialVersionUID = 100L;
+	private static final long serialVersionUID = 4L;
 	
 	public FontPanel(){
 		super();

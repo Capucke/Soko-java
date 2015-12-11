@@ -22,6 +22,9 @@ public class SokoGame {
 	private int sokoJ = -1;
 	private int initSokoI = -1;
 	private int initSokoJ = -1;
+	
+	private int width;
+	private int height;
 
 	public final static int EMPTY = 0;
 	public final static int SOKO = 1;
@@ -263,6 +266,14 @@ public class SokoGame {
 
 		return buffLevel;
 	}
+	
+	public int getWidth(){
+		return this.width;
+	}
+	
+	public int getHeight(){
+		return this.height;
+	}
 
 	private void initStartMatrix(BufferedReader buffLevel) {
 		try {
@@ -276,7 +287,7 @@ public class SokoGame {
 				currCharInt = buffLevel.read();
 				currChar = (char) currCharInt;
 			}
-			int width = Integer.parseInt(widthString);
+			this.width = Integer.parseInt(widthString);
 
 			currCharInt = buffLevel.read();
 			currChar = (char) currCharInt;
@@ -287,8 +298,8 @@ public class SokoGame {
 				currCharInt = buffLevel.read();
 				currChar = (char) currCharInt;
 			}
-			int height = Integer.parseInt(heightString);
-
+			this.height = Integer.parseInt(heightString);
+			
 			this.curMat = new GameMatrix(width, height, SokoGame.WALL + 1);
 			this.startMat = new GameMatrix(width, height, SokoGame.WALL + 1);
 			this.nbGoal = 0;

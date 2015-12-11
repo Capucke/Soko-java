@@ -8,7 +8,7 @@ import menus.MenuItem;
 
 public class PageMenuItem extends MenuItem {
 
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 13L;
 
 	public final static Color selectedColor = new Color(64, 0, 128);
 	public final static Color normalColor = new Color(109, 0, 217);

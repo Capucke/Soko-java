@@ -8,7 +8,7 @@ import menus.MenuItem;
 
 public class LevelMenuItem extends MenuItem {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 12L;
 
 	public final static Color selectedColor = new Color(64, 0, 128);
 	public final static Color normalColor = new Color(109, 0, 217);

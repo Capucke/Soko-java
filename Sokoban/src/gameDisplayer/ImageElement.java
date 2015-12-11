@@ -18,6 +18,7 @@ public class ImageElement {
 	public final static Image GOAL_IMG;
 	public final static Image EMPTY_IMG;
 	public final static Image TXT_COMPLETE;
+	public final static Image EXPL_JEU;
 
 	static {
 		BAG_IMG = ImageElement.chargeImg("/img/final/camera.png");
@@ -26,6 +27,7 @@ public class ImageElement {
 		GOAL_IMG = ImageElement.chargeImg("/img/final/clap.png");
 		EMPTY_IMG = ImageElement.chargeImg("/img/final/parquet.jpg");
 		TXT_COMPLETE = ImageElement.chargeImg("/img/final/texte_complete.png");
+		EXPL_JEU = ImageElement.chargeImg("/img/final/texte_complete.png");
 	}
 
 	public ImageElement(int theX, int theY, Image img, ImageObserver obs) {

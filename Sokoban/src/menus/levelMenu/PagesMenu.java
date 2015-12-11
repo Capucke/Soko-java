@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class PagesMenu extends JPanel {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 14L;
 	private SokoFenetre fen;
 
 	private ArrayList<PageMenuItem> pageListe;

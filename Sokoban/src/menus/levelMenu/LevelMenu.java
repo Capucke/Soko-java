@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class LevelMenu extends JPanel {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 11L;
 	private SokoFenetre fen;
 
 	private ArrayList<LevelMenuItem> itemListe;

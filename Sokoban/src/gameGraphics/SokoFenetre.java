@@ -19,14 +19,15 @@ import menus.levelMenu.FullLevelMenu;
 //import menus.levelMenu.LevelMenu;
 
 public class SokoFenetre extends JFrame {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	// private JScrollPane scrollPane;
 	private SokoPanel sokoPanel;
+	private ExplicationPanel explPanel;
 	private FrontMenu frontMenu;
 	private FullLevelMenu levelMenu;
 
-	private int panelWidth;
-	private int panelHeight;
+	private int fenWidth = 400;
+	private int fenHeight = 200;
 	private SokoDisplayer sokoDisplayer;
 
 	 public SokoFenetre() {
@@ -40,6 +41,8 @@ public class SokoFenetre extends JFrame {
 
 	public SokoFenetre(int width, int height, Color bgColor) {
 		super("Sokoban - Judith ;)");
+		this.fenWidth = width;
+		this.fenHeight = height;
 
 		this.frontMenu = new FrontMenu(Color.MAGENTA, this);
 		this.levelMenu = new FullLevelMenu(Color.GREEN, this);
@@ -51,13 +54,13 @@ public class SokoFenetre extends JFrame {
 			var7.printStackTrace();
 		}
 
-		this.sokoPanel = new SokoPanel(width, height, bgColor);
+		this.explPanel = new ExplicationPanel(200, height, bgColor, this);
+		this.sokoPanel = new SokoPanel(width-200, height, bgColor);
 		// this.scrollPane = new JScrollPane(this.sokoPanel);
 		// this.scrollPane.setPreferredSize(new Dimension(Math.min(800, width),
 		// Math.min(600, height)));
-		this.panelWidth = width;
-		this.panelHeight = height;
-		this.sokoPanel.setBackground(bgColor);
+		
+//		this.sokoPanel.setBackground(bgColor);
 
 		this.getContentPane().setLayout(new BorderLayout());
 
@@ -67,10 +70,10 @@ public class SokoFenetre extends JFrame {
 
 		this.setResizable(true);
 
-		this.sokoPanel.setSize(this.sokoPanel.getWidth(),
-				this.sokoPanel.getHeight());
+//		this.sokoPanel.setSize(this.sokoPanel.getWidth(),
+//				this.sokoPanel.getHeight());
 
-		this.pack();
+//		this.pack();
 		this.setVisible(true);
 	}
 
@@ -102,6 +105,7 @@ public class SokoFenetre extends JFrame {
 		this.getContentPane().removeAll();
 		// à commenter pour remettre le scroll
 		this.getContentPane().add(this.sokoPanel, "Center");
+		this.getContentPane().add(this.explPanel, "East");
 
 		// à décommenter pour remettre le scroll
 		// this.getContentPane().add(this.scrollPane, "Center");
@@ -145,12 +149,12 @@ public class SokoFenetre extends JFrame {
 		return this.frontMenu;
 	}
 
-	public int getPanelWidth() {
-		return this.panelWidth;
+	public int getFenWidth() {
+		return this.fenWidth;
 	}
 
-	public int getPanelHeight() {
-		return this.panelHeight;
+	public int getFenHeight() {
+		return this.fenHeight;
 	}
 
 	public void addImageElement(ImageElement e) {

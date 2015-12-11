@@ -10,15 +10,22 @@ public class SokoDisplayer {
 
 	private SokoGame soko;
 	private SokoFenetre fen;
+	
+	private int xSokoGame;
+	private int ySokoGame;
 
 	public SokoDisplayer(SokoGame sokoMat, SokoFenetre sokoFen) {
-		this.soko = sokoMat;
 		this.fen = sokoFen;
+		this.setGame(sokoMat);
 		this.fen.getSokoPanel().addKeyListener(new SokoKeyListener(this));
 	}
 
 	public void setGame(SokoGame game) {
 		this.soko = game;
+		this.xSokoGame = (this.fen.getSokoPanel().getSokoPanelWidth()/2) - (80 * game.getWidth()/2);
+		this.ySokoGame = (this.fen.getSokoPanel().getSokoPanelHeight()/2) - (80 * game.getHeight()/2);
+		System.out.println("Largeur panel : " + this.fen.getSokoPanel().getWidth());
+		System.out.println(this.xSokoGame);
 	}
 
 	public void move(int diffI, int diffJ) {
@@ -66,7 +73,7 @@ public class SokoDisplayer {
 	}
 
 	private void addImg(int i, int j, Image img) {
-		this.fen.addImageElement(new ImageElement(80 * j, 80 * i, img, this.fen
+		this.fen.addImageElement(new ImageElement(80 * j + this.xSokoGame, 80 * i + this.ySokoGame, img, this.fen
 				.getSokoPanel()));
 	}
 

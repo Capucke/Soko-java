@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 public abstract class MenuItem extends JPanel {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 5L;
 	private Color normalTxtColor;
 	private Color selectTxtColor;
 	private String texte;
