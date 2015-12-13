@@ -85,7 +85,7 @@ public class SokoFenetre extends JFrame {
 
 		this.pack();
 		this.revalidate();
-		// this.repaint();
+		this.repaint();
 	}
 
 	public void displayLevelMenu() {
@@ -96,7 +96,7 @@ public class SokoFenetre extends JFrame {
 
 		this.pack();
 		this.revalidate();
-		// this.repaint();
+		this.repaint();
 	}
 
 	public void displayGame(int numLevel) {
@@ -116,7 +116,7 @@ public class SokoFenetre extends JFrame {
 //		this.sokoGamePanel.repaint();
 		this.pack();
 		this.revalidate();
-		// this.repaint();
+		this.repaint();
 	}
 
 	public void setGame(int numLevel) {

@@ -15,8 +15,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.Graphics;
-import java.awt.RenderingHints;
 
 public abstract class MenuItem extends JPanel {
 

@@ -2,6 +2,7 @@ package menus.levelMenu;
 
 import gameGraphics.SokoFenetre;
 import gameStructures.ListeLevels;
+import java.awt.BorderLayout;
 //import java.awt.BorderLayout;
 import java.awt.Color;
 //import java.awt.Dimension;
@@ -29,9 +30,18 @@ public class PagesMenu extends JPanel {
 
 		this.initPages(nbItemPerPage);
 
+		JPanel pagesPanel = new JPanel();
+		pagesPanel.setBackground(bg);
+		
 		for (int i = 0; i < this.pageListe.size(); i++) {
-			this.add(this.pageListe.get(i));
+			pagesPanel.add(this.pageListe.get(i));
 		}
+		
+		PeachPanel peach = new PeachPanel(bg, window);
+		
+		this.add(peach.getEquiPanel(), BorderLayout.WEST);
+		this.add(pagesPanel, BorderLayout.CENTER);
+		this.add(peach, BorderLayout.EAST);
 
 	}
 

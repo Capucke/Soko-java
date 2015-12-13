@@ -27,12 +27,12 @@ public class FullLevelMenu extends JPanel {
 		this.fen = window;
 
 		this.levelPanel = new LevelMenu(bg, this.fen);
-		this.levelPanel.setPreferredSize(new Dimension(this.fen.getFenWidth(), this.fen.getFenHeight()-100));
+		this.levelPanel.setPreferredSize(new Dimension(this.fen.getFenWidth(), this.fen.getFenHeight()-150));
 
 		int nbLevelPerPage = this.levelPanel.getNbLevelPerLine()
 				* this.levelPanel.getNbLevelPerCol();
 		this.pagePanel = new PagesMenu(bg, this.fen, nbLevelPerPage);
-		this.pagePanel.setPreferredSize(new Dimension(this.fen.getFenWidth(), 100));
+		this.pagePanel.setPreferredSize(new Dimension(this.fen.getFenWidth(), 150));
 
 		this.setPreferredSize(new Dimension(600, 500));
 

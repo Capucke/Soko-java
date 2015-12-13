@@ -37,6 +37,9 @@ public class SokoKeyListener implements KeyListener {
 		case KeyEvent.VK_P:
 			this.displayer.previousLevel();
 			break;
+		case KeyEvent.VK_ESCAPE:
+			this.displayer.getFenetre().displayLevelMenu();
+			break;
 		default:
 			return;
 		}

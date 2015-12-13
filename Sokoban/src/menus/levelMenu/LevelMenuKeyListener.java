@@ -209,6 +209,9 @@ public class LevelMenuKeyListener implements KeyListener {
 			this.levelMatrix[this.selectedPage][this.selectedLine][this.selectedCol]
 					.actionIfSelected();
 			break;
+		case KeyEvent.VK_ESCAPE:
+			this.levelMenu.getFenetre().displayFrontMenu();
+			break;
 		default:
 			return;
 		}

@@ -81,5 +81,9 @@ public class LevelMenu extends JPanel {
 	public int getNbLevelPerCol() {
 		return this.nbLevelPerCol;
 	}
+	
+	public SokoFenetre getFenetre(){
+		return this.fen;
+	}
 
 }

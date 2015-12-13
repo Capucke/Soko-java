@@ -24,6 +24,10 @@ public class SokoDisplayer {
 		this.soko = game;
 	}
 	
+	public SokoFenetre getFenetre(){
+		return this.fen;
+	}
+	
 	public void calculOffSet(SokoGame game){
 		this.xSokoGame = (this.fen.getSokoGamePanel().getSokoPanelWidth()/2) - (80 * game.getWidth()/2);
 		this.ySokoGame = (this.fen.getSokoGamePanel().getSokoPanelHeight()/2) - (80 * game.getHeight()/2);
