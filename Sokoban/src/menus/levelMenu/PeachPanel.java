@@ -21,8 +21,8 @@ public class PeachPanel extends JPanel {
 		super();
 		this.bgCol = bg;
 		this.setBackground(bg);
-		this.setPreferredSize(new Dimension(140, 140));
-		this.bigPeach = new ImageElement(0, 0, ImageElement.MID_PEACH, window);
+		this.setPreferredSize(new Dimension(190, 140));
+		this.bigPeach = new ImageElement(50, 0, ImageElement.MID_PEACH, window);
 	}
 	
 	public JPanel getEquiPanel(){

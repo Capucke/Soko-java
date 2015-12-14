@@ -19,8 +19,6 @@ public class LevelMenu extends JPanel {
 
 	private ArrayList<LevelMenuItem> itemListe;
 
-	// private int selectedItem;
-
 	private int nbLevelPerLine = 3;
 	private int nbLevelPerCol = 3;
 
@@ -39,7 +37,6 @@ public class LevelMenu extends JPanel {
 
 	private void initLevels() {
 		this.itemListe = new ArrayList<LevelMenuItem>(10);
-		// this.selectedItem = 0;
 
 		int nbLevels = ListeLevels.NB_LEVELS;
 
@@ -63,9 +60,9 @@ public class LevelMenu extends JPanel {
 			this.add(this.itemListe.get(i));
 		}
 
-		JPanel fakePanel = new JPanel();
-		fakePanel.setBackground(this.getBackground());
 		for (int i = lastInd + 1; i < (selectedPage + 1) * nbLevelPerPage; i++) {
+			JPanel fakePanel = new JPanel();
+			fakePanel.setBackground(this.getBackground());
 			this.add(fakePanel);
 		}
 	}

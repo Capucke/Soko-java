@@ -3,9 +3,7 @@ package gameGraphics;
 import gameDisplayer.ImageElement;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 

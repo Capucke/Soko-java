@@ -12,7 +12,7 @@ public class SokoGame {
 	private GameMatrix startMat;
 
 	// public final static String LEVEL_LISTE = "/levels/listeLevels.txt";
-	public final static ArrayList<String> LEVEL_NAMES = ListeLevels.LISTE_LEVELS;
+	public final static ArrayList<String> LEVEL_NAMES = ListeLevels.LISTE_LEVEL_FILES;
 	private int currLevel;
 
 	private int nbGoalOkStart;

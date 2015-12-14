@@ -1,6 +1,7 @@
 package menus.levelMenu;
 
 import gameGraphics.SokoFenetre;
+import gameStructures.ListeLevels;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,19 +26,20 @@ public class LevelMenuItem extends MenuItem {
 
 	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num,
 			boolean selected) {
-		super(sokoFen, bg, normalColor, selectedColor, new String("Niveau " + (num +1)), LevelMenuItem.txtSize, selected);
+		super(sokoFen, bg, normalColor, selectedColor, ListeLevels.LISTE_LEVELS
+				.get(num).getName(), LevelMenuItem.txtSize, selected);
 		this.numeroLevel = num;
 	}
 	
-	public String getName(){
-		return Integer.toString(this.numeroLevel + 1);
+	public String getName() {
+		return ListeLevels.LISTE_LEVELS.get(this.numeroLevel).getName();
 	}
 
 	@Override
 	public void actionIfSelected() {
 		this.getFenetre().displayGame(this.numeroLevel);
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -47,9 +49,9 @@ public class LevelMenuItem extends MenuItem {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
 				RenderingHints.VALUE_RENDER_QUALITY);
-		
+
 		this.paintItem(g2d, 0, 0);
-		
+
 	}
 
 }
