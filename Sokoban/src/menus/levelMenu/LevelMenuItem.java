@@ -17,22 +17,42 @@ public class LevelMenuItem extends MenuItem {
 	public final static Color selectedColor = new Color(64, 0, 128);
 	public final static Color normalColor = new Color(109, 0, 217);
 
+	public final static Color completedSelectedColor = new Color(64, 120, 10);
+	public final static Color completedNormalColor = new Color(109, 180, 0);
+
 	private int numeroLevel;
 	private final static int txtSize = 35;
 
-	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num) {
-		this(sokoFen, bg, num, false);
+	private boolean completed;
+
+	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num, boolean compl) {
+		this(sokoFen, bg, num, false, compl);
 	}
 
-	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num,
+	public LevelMenuItem(SokoFenetre sokoFen, Color bg, int num, boolean compl,
 			boolean selected) {
 		super(sokoFen, bg, normalColor, selectedColor, ListeLevels.LISTE_LEVELS
 				.get(num).getName(), LevelMenuItem.txtSize, selected);
 		this.numeroLevel = num;
+		this.completed = compl;
 	}
-	
+
 	public String getName() {
 		return ListeLevels.LISTE_LEVELS.get(this.numeroLevel).getName();
+	}
+	
+	public void setCompleted(boolean compl){
+		this.completed = compl;
+	}
+
+	@Override
+	protected Color getColorIfSelected() {
+		return (this.completed) ? completedSelectedColor : selectedColor;
+	}
+	
+	@Override
+	protected Color getColorIfNotSelected() {
+		return (this.completed) ? completedNormalColor : normalColor;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class LevelMenu extends JPanel {
 	private static final long serialVersionUID = 11L;
 	private SokoFenetre fen;
 
-	private ArrayList<LevelMenuItem> itemListe;
+	private static ArrayList<LevelMenuItem> itemListe;
 
 	private int nbLevelPerLine = 3;
 	private int nbLevelPerCol = 3;
@@ -34,17 +34,20 @@ public class LevelMenu extends JPanel {
 
 		this.switchPage(0);
 	}
+	
+	private void addLevel(int numLevel, boolean selected){
+		itemListe.add(new LevelMenuItem(this.fen,
+				this.getBackground(), numLevel, ListeLevels.LISTE_LEVELS.get(numLevel).isCompleted(), selected));
+	}
 
 	private void initLevels() {
-		this.itemListe = new ArrayList<LevelMenuItem>(10);
+		itemListe = new ArrayList<LevelMenuItem>(10);
 
 		int nbLevels = ListeLevels.NB_LEVELS;
 
-		this.itemListe.add(new LevelMenuItem(this.fen, this.getBackground(), 0,
-				true));
+		this.addLevel(0, true);
 		for (int i = 1; i < nbLevels; i++) {
-			this.itemListe.add(new LevelMenuItem(this.fen,
-					this.getBackground(), i));
+			this.addLevel(i, false);
 		}
 	}
 
@@ -54,10 +57,10 @@ public class LevelMenu extends JPanel {
 		int nbLevelPerPage = this.nbLevelPerLine * this.nbLevelPerCol;
 
 		int firstInd = selectedPage * nbLevelPerPage;
-		int lastInd = Math.min(this.itemListe.size(), (selectedPage + 1)
+		int lastInd = Math.min(itemListe.size(), (selectedPage + 1)
 				* nbLevelPerPage) - 1;
 		for (int i = firstInd; i <= lastInd; i++) {
-			this.add(this.itemListe.get(i));
+			this.add(itemListe.get(i));
 		}
 
 		for (int i = lastInd + 1; i < (selectedPage + 1) * nbLevelPerPage; i++) {
@@ -66,9 +69,19 @@ public class LevelMenu extends JPanel {
 			this.add(fakePanel);
 		}
 	}
+	
+	public static void setCompletedItem(int num){
+		itemListe.get(num).setCompleted(true);
+	}
+	
+	public static void reInitStat(){
+		for(int i = 0; i<itemListe.size();i++){
+			itemListe.get(i).setCompleted(false);
+		}
+	}
 
-	public ArrayList<LevelMenuItem> getLevelListe() {
-		return this.itemListe;
+	public static ArrayList<LevelMenuItem> getLevelListe() {
+		return itemListe;
 	}
 
 	public int getNbLevelPerLine() {

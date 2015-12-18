@@ -16,17 +16,20 @@ public abstract class FrontMenuItem extends MenuItem {
 	public FrontMenuItem(SokoFenetre sokoFen, String txt) {
 		this(sokoFen, txt, false);
 	}
-	
-	public FrontMenuItem(SokoFenetre sokoFen, String txt,
+
+	public FrontMenuItem(SokoFenetre sokoFen, String txt, int txtSize,
 			boolean selected) {
-		super(sokoFen, normalColor, selectedColor, txt, 70, selected);
+		super(sokoFen, normalColor, selectedColor, txt, txtSize, selected);
 	}
-	
+
+	public FrontMenuItem(SokoFenetre sokoFen, String txt, boolean selected) {
+		this(sokoFen, txt, 70, selected);
+	}
+
 	public FrontMenuItem(SokoFenetre sokoFen, Color bg, String txt) {
 		this(sokoFen, bg, txt, false);
 	}
 
-	
 	public FrontMenuItem(SokoFenetre sokoFen, Color bg, String txt,
 			boolean selected) {
 		super(sokoFen, bg, normalColor, selectedColor, txt, 70, selected);

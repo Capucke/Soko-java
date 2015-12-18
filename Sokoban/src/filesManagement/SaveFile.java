@@ -18,12 +18,12 @@ public class SaveFile {
 	public static String getFilePath() {
 		return saveFile.getAbsolutePath();
 	}
-	
+
 	public static File getFile() {
 		return saveFile;
 	}
-	
-	public static boolean createFileIfNotExist(){
+
+	public static boolean createFileIfNotExist() {
 		createFolder();
 		saveFile = new File(saveDir, saveFileName);
 		// if the directory does not exist, create it
@@ -38,15 +38,15 @@ public class SaveFile {
 				e.printStackTrace();
 			}
 		}
-		return saveFile.isFile();		
+		return saveFile.isFile();
 	}
 
 	public static boolean createFolder() {
-		saveDir = new File(System.getenv("APPDATA") + File.pathSeparator
-				+ saveDirName);
+		saveDir = new File(System.getenv("APPDATA"), saveDirName);
 		// if the directory does not exist, create it
 		if (!saveDir.exists()) {
 			System.out.println("creating directory: " + saveDirName);
+			System.out.println("\nChemin : " + saveDir.getAbsolutePath());
 			boolean result = false;
 
 			try {
@@ -61,26 +61,29 @@ public class SaveFile {
 		}
 		return true;
 	}
-	
+
 	public static boolean clearFile() {
-		FileWriter saveFileWriter;
-		PrintWriter saveFilePw;
-		try {
-			saveFileWriter = new FileWriter(saveFile, false);
-			saveFilePw = new PrintWriter(saveFileWriter, false);
-			saveFilePw.flush();
-			saveFilePw.close();
-			saveFileWriter.close();
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (saveFile.isFile()) {
+			FileWriter saveFileWriter;
+			PrintWriter saveFilePw;
+			try {
+				saveFileWriter = new FileWriter(saveFile, false);
+				saveFilePw = new PrintWriter(saveFileWriter, false);
+				saveFilePw.flush();
+				saveFilePw.close();
+				saveFileWriter.close();
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public static boolean addNumber(int num) {
 		boolean fileExist = createFileIfNotExist();
-		if (!fileExist){
+		if (!fileExist) {
 			System.err.println("Le fichier n'existe pas");
 			return false;
 		}

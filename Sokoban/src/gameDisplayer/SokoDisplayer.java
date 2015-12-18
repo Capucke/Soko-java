@@ -88,8 +88,8 @@ public class SokoDisplayer {
 				.getSokoGamePanel());
 		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen
 				.getSokoGamePanel());
-		int panelWidth = this.fen.getSokoGamePanel().getWidth();
-		int panelHeight = this.fen.getSokoGamePanel().getHeight();
+		int panelWidth = this.fen.getSokoGamePanel().getSokoPanelWidth();
+		int panelHeight = this.fen.getSokoGamePanel().getSokoPanelHeight();
 
 		xTxt = panelWidth / 2 - (txtWidth / 2);
 		yTxt = panelHeight / 2 - (txtHeight / 2);
@@ -108,9 +108,6 @@ public class SokoDisplayer {
 			for (int j = 0; j < gameMat.getNbCol(); j++) {
 				temp = gameMat.getObj(i, j);
 
-//				if (temp == SokoGame.WALL) {
-//					this.addImg(i, j, ImageElement.WALL_IMG);
-//				} else {
 				if (temp != SokoGame.WALL) {
 					this.addImg(i, j, ImageElement.EMPTY_IMG);
 

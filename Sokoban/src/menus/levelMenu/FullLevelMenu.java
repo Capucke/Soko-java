@@ -46,7 +46,8 @@ public class FullLevelMenu extends JPanel {
 	}
 
 	public ArrayList<LevelMenuItem> getLevelListe() {
-		return this.levelPanel.getLevelListe();
+//		return this.levelPanel.getLevelListe();
+		return LevelMenu.getLevelListe();
 	}
 
 	public ArrayList<PageMenuItem> getPageListe() {

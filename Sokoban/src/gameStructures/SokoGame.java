@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import menus.levelMenu.LevelMenu;
 import filesManagement.ListeLevels;
-import filesManagement.SaveFile;
 
 public class SokoGame {
 
@@ -83,8 +83,11 @@ public class SokoGame {
 	public boolean isComplete() {
 		if (this.nbGoal == this.nbGoalOk){
 			if (!ListeLevels.LISTE_LEVELS.get(currLevel).isCompleted()){
-				ListeLevels.LISTE_LEVELS.get(currLevel).setCompleted(true);
-				SaveFile.addNumber(currLevel);
+				ListeLevels.addCompletedLevel(currLevel);
+				LevelMenu.setCompletedItem(currLevel);
+				System.out.println(ListeLevels.getCompletedLevelsString());
+				System.out.println(ListeLevels.getIndexCompletedLevelsString());
+				System.out.println(ListeLevels.LISTE_LEVELS.get(currLevel).getName());
 			}
 			return true;
 		}

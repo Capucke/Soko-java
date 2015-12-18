@@ -28,7 +28,7 @@ public class ListeLevels {
 		LISTE_LEVEL_FILES = ListeLevels.getLevelFiles(fullPathListeLevels);
 
 		NB_LEVELS = LISTE_LEVEL_FILES.size();
-		ListeLevels.indexCompletedLevels = ListeLevels.scanSaveFile();
+		ListeLevels.scanSaveFile();
 
 		LISTE_LEVELS = new ArrayList<Level>();
 		int i = 0;
@@ -65,7 +65,7 @@ public class ListeLevels {
 		return levelNames;
 	}
 
-	private static ArrayList<Integer> scanSaveFile() {
+	private static void scanSaveFile() {
 		ArrayList<Integer> listeCompletedLevels = new ArrayList<Integer>();
 
 		InputStream fileStream;
@@ -73,7 +73,7 @@ public class ListeLevels {
 		try {
 			SaveFile.createFileIfNotExist();
 			fileStream = new FileInputStream(SaveFile.getFile());
-			System.out.println("\n\n\n" + SaveFile.getFilePath() + "\n\n\n");
+			System.out.println("\n" + SaveFile.getFilePath() + "\n");
 			buffLevel = new BufferedReader(new InputStreamReader(fileStream));
 
 			String completedLevel;
@@ -89,7 +89,7 @@ public class ListeLevels {
 			e.printStackTrace();
 		}
 
-		return listeCompletedLevels;
+		indexCompletedLevels = listeCompletedLevels;
 	}
 
 	public static void reInitStat() {
@@ -98,6 +98,34 @@ public class ListeLevels {
 		}
 		SaveFile.createFileIfNotExist();
 		SaveFile.clearFile();
+	}
+
+	// Attention, avant d'appeler cette fonction, il faut vérifier que le niveau
+	// n'est pas déjà complété
+	public static void addCompletedLevel(int num) {
+		LISTE_LEVELS.get(num).setCompleted(true);
+		indexCompletedLevels.add(num);
+		SaveFile.addNumber(num);
+	}
+
+	public static String getIndexCompletedLevelsString() {
+		String s = new String("IndexCompletedLevels : ");
+		for (int i = 0; i < indexCompletedLevels.size(); i++) {
+			s += indexCompletedLevels.get(i);
+			s += ", ";
+		}
+		return s;
+	}
+
+	public static String getCompletedLevelsString() {
+		String s = new String("Niveaux complétés : ");
+		for (int i = 0; i < LISTE_LEVELS.size(); i++) {
+			if (LISTE_LEVELS.get(i).isCompleted()) {
+				s += i;
+				s += ", ";
+			}
+		}
+		return s;
 	}
 
 }

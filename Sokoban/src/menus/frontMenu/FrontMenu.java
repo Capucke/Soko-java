@@ -48,9 +48,11 @@ public class FrontMenu extends SokoPanel {
 		this.selectedItem = 0;
 
 		FrontMenuItem play = new PlayItem(this.fen, true);
+		FrontMenuItem reInit = new ReInitStatItem(this.fen, false);
 		FrontMenuItem quit = new QuitItem(this.fen, false);
 
 		this.itemListe.add(play);
+		this.itemListe.add(reInit);
 		this.itemListe.add(quit);
 	}
 	

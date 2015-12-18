@@ -28,7 +28,8 @@ public class LevelMenuKeyListener implements KeyListener {
 		this.levelMenu = menu;
 		this.menuPages = pages;
 
-		ArrayList<LevelMenuItem> levels = this.levelMenu.getLevelListe();
+//		ArrayList<LevelMenuItem> levels = this.levelMenu.getLevelListe();
+		ArrayList<LevelMenuItem> levels = LevelMenu.getLevelListe();
 
 		int nbItemPerLine = this.levelMenu.getNbLevelPerLine();
 		int nbItemPerCol = this.levelMenu.getNbLevelPerCol();
@@ -118,7 +119,8 @@ public class LevelMenuKeyListener implements KeyListener {
 		int newSelectedLine = this.selectedLine;
 		int newSelectedCol = this.selectedCol;
 
-		int nbItemTotal = this.levelMenu.getLevelListe().size();
+//		int nbItemTotal = this.levelMenu.getLevelListe().size();
+		int nbItemTotal = LevelMenu.getLevelListe().size();
 
 		int nbItemPerLine = this.levelMenu.getNbLevelPerLine();
 		int nbItemPerCol = this.levelMenu.getNbLevelPerCol();

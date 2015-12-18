@@ -38,11 +38,7 @@ public class Level {
 	}
 	
 	public String getName(){
-		String name = new String(this.apparentName);
-		if (this.completed){
-			name += new String(" (ok)");
-		}
-		return name;
+		return this.apparentName;
 	}
 	
 	public boolean isCompleted(){

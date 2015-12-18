@@ -92,6 +92,14 @@ public abstract class MenuItem extends JPanel {
 		return this.fen;
 	}
 	
+	protected Color getColorIfSelected(){
+		return this.selectTxtColor;
+	}
+	
+	protected Color getColorIfNotSelected(){
+		return this.normalTxtColor;
+	}
+	
 	public void paintItem(Graphics2D g2d, int x, int y){
 		Dimension dim = this.getSize();
 		int w = (int) dim.getWidth();
@@ -145,8 +153,8 @@ public abstract class MenuItem extends JPanel {
 
 		// Sets the rendering method.
 		Graphics2D tempg2d = g2d;
-		Color txtColor = (this.isSelected) ? this.selectTxtColor
-				: this.normalTxtColor;
+		Color txtColor = (this.isSelected) ? this.getColorIfSelected()
+				: this.getColorIfNotSelected();
 		g2d.setColor(txtColor);
 		g2d.fill(shape);
 

@@ -1,28 +1,22 @@
 package gameGraphics;
 
-//import gameGraphics.DefaultDisplayer;
-//import gameGraphics.Displayer;
 import gameStructures.SokoGame;
 import gameDisplayer.ImageElement;
 import gameDisplayer.SokoDisplayer;
 import gameDisplayer.SokoGamePanel;
+import menus.frontMenu.FrontMenu;
+import menus.levelMenu.FullLevelMenu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-//import java.awt.Dimension;
 import javax.swing.JFrame;
-//import javax.swing.JScrollPane;
 import javax.swing.UIManager;
-
-import menus.frontMenu.FrontMenu;
-import menus.levelMenu.FullLevelMenu;
-//import menus.levelMenu.LevelMenu;
 
 public class SokoFenetre extends JFrame {
 	private static final long serialVersionUID = 2L;
 	// private JScrollPane scrollPane;
 	private SokoGamePanel sokoGamePanel;
-	private ExplicationPanel explPanel;
+//	private ExplicationPanel explPanel;
 	private FrontMenu frontMenu;
 	private FullLevelMenu levelMenu;
 
@@ -54,8 +48,8 @@ public class SokoFenetre extends JFrame {
 			var7.printStackTrace();
 		}
 
-		this.explPanel = new ExplicationPanel(200, height, bgColor, this);
-		this.sokoGamePanel = new SokoGamePanel(width-200, height, Color.BLACK);
+//		this.explPanel = new ExplicationPanel(200, height, bgColor, this);
+		this.sokoGamePanel = new SokoGamePanel(width, height, Color.BLACK);
 		// this.scrollPane = new JScrollPane(this.sokoGamePanel);
 		// this.scrollPane.setPreferredSize(new Dimension(Math.min(800, width),
 		// Math.min(600, height)));
@@ -105,7 +99,7 @@ public class SokoFenetre extends JFrame {
 		this.getContentPane().removeAll();
 		// à commenter pour remettre le scroll
 		this.getContentPane().add(this.sokoGamePanel, "Center");
-		this.getContentPane().add(this.explPanel, "East");
+//		this.getContentPane().add(this.explPanel, "East");
 
 		// à décommenter pour remettre le scroll
 		// this.getContentPane().add(this.scrollPane, "Center");
