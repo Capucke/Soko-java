@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import filesManagement.ListeLevels;
+import filesManagement.SaveFile;
+
 public class SokoGame {
 
 	private GameMatrix curMat;
@@ -78,7 +81,14 @@ public class SokoGame {
 	}
 
 	public boolean isComplete() {
-		return (this.nbGoal == this.nbGoalOk);
+		if (this.nbGoal == this.nbGoalOk){
+			if (!ListeLevels.LISTE_LEVELS.get(currLevel).isCompleted()){
+				ListeLevels.LISTE_LEVELS.get(currLevel).setCompleted(true);
+				SaveFile.addNumber(currLevel);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public void reInitCurMat() {

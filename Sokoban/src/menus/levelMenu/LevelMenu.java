@@ -1,7 +1,7 @@
 package menus.levelMenu;
 
+import filesManagement.ListeLevels;
 import gameGraphics.SokoFenetre;
-import gameStructures.ListeLevels;
 //import java.awt.BorderLayout;
 import java.awt.Color;
 //import java.awt.Dimension;
