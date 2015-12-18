@@ -21,6 +21,7 @@ public class ImageElement {
 	public final static Image EXPL_JEU;
 	public final static Image BIG_PEACH;
 	public final static Image MID_PEACH;
+	public final static Image FOND_ETOILE;
 
 	static {
 		BAG_IMG = ImageElement.chargeImg("/img/camera.png");
@@ -32,6 +33,7 @@ public class ImageElement {
 		EXPL_JEU = ImageElement.chargeImg("/img/texte_complete.png");
 		BIG_PEACH = ImageElement.chargeImg("/img/big_peach.png");
 		MID_PEACH = ImageElement.chargeImg("/img/mid_peach.png");
+		FOND_ETOILE = ImageElement.chargeImg("/img/etoiles.png");
 	}
 
 	public ImageElement(int theX, int theY, Image img, ImageObserver obs) {

@@ -84,21 +84,31 @@ public class SokoDisplayer {
 	private void addTxtFin() {
 		int xTxt;
 		int yTxt;
-		int txtWidth = ImageElement.TXT_COMPLETE.getWidth(this.fen
-				.getSokoGamePanel());
-		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen
-				.getSokoGamePanel());
+		int txtWidth = ImageElement.TXT_COMPLETE.getWidth(this.fen);
+		int txtHeight = ImageElement.TXT_COMPLETE.getHeight(this.fen);
+		
+		txtWidth = 612;
+		txtHeight = 85;
+		
 		int panelWidth = this.fen.getSokoGamePanel().getSokoPanelWidth();
 		int panelHeight = this.fen.getSokoGamePanel().getSokoPanelHeight();
-
+		
 		xTxt = panelWidth / 2 - (txtWidth / 2);
-		yTxt = panelHeight / 2 - (txtHeight / 2);
+		yTxt = panelHeight / 4 - (txtHeight / 4);
+		
+		
+		System.out.println("panelWidth : " + panelWidth);
+		System.out.println("txtWidth : " + txtWidth);
+		System.out.println("xTxt : " + xTxt);
+		System.out.println("panelHeight : " + panelHeight);
+		System.out.println("txtHeight : " + txtHeight);
+		System.out.println("yTxt : " + yTxt);
 
 		this.fen.addImageElement(new ImageElement(xTxt, yTxt,
 				ImageElement.TXT_COMPLETE, this.fen.getSokoGamePanel()));
 	}
 
-	private void drawGame(SokoGame game, boolean afficheTxtComplete) {
+	private void drawGame(SokoGame game, boolean jeuTermine) {
 		this.calculOffSet(game);
 		
 		GameMatrix gameMat = game.getCurrMat();
@@ -128,7 +138,9 @@ public class SokoDisplayer {
 			}
 		}
 
-		if (afficheTxtComplete) {
+		if (jeuTermine) {
+			this.fen.addImageElement(new ImageElement(0, 0,
+					ImageElement.FOND_ETOILE, this.fen.getSokoGamePanel()));
 			this.addTxtFin();
 		}
 
