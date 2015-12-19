@@ -73,7 +73,6 @@ public class ListeLevels {
 		try {
 			SaveFile.createFileIfNotExist();
 			fileStream = new FileInputStream(SaveFile.getFile());
-			System.out.println("\n" + SaveFile.getFilePath() + "\n");
 			buffLevel = new BufferedReader(new InputStreamReader(fileStream));
 
 			String completedLevel;

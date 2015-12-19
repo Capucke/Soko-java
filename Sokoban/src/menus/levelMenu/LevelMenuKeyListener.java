@@ -61,14 +61,6 @@ public class LevelMenuKeyListener implements KeyListener {
 
 	}
 
-	// private int switchPage(int wantedPage) {
-	// int nbItemPerPage = this.levelMenu.getNbLevelPerLine()
-	// * this.levelMenu.getNbLevelPerCol();
-	// int newPage = this.menuPages.switchPage(wantedPage, nbItemPerPage);
-	// this.levelMenu.switchPage(newPage);
-	// return newPage;
-	// }
-
 	private void switchSelectedLevel(int wantedPage, int wantedLine,
 			int wantedCol) {
 

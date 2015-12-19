@@ -26,7 +26,7 @@ public class SaveFile {
 	public static boolean createFileIfNotExist() {
 		createFolder();
 		saveFile = new File(saveDir, saveFileName);
-		// if the directory does not exist, create it
+		// if the file does not exist, create it
 		if (!saveFile.exists()) {
 			System.out.println("creating file: " + saveFileName);
 

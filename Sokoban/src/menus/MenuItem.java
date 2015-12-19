@@ -111,19 +111,6 @@ public abstract class MenuItem extends JPanel {
 		AffineTransform textAt = new AffineTransform();
 		textAt.translate(0, (float) textTl.getBounds().getHeight());
 
-		// TextLayout thisTl = new TextLayout(this.texte, new Font("Helvetica",
-		// 0, 10), g2d.getFontRenderContext());
-		// float width = (float)thisTl.getBounds().getWidth();
-		// float height = (float)thisTl.getBounds().getHeight();
-		// thisTl.draw(g2d, w/2-width/2, 15);
-		//
-		//
-		// thisTl = new TextLayout(this.texte, new Font("Helvetica", 0, 10),
-		// g2d.getFontRenderContext());
-		// width = (float)thisTl.getBounds().getWidth();
-		// thisTl.draw(g2d, w/2-width/2, height + 17);
-		//
-		//
 		AffineTransform at = new AffineTransform();
 		at.setToIdentity();
 		at.translate(w / 2, h / 2);
@@ -137,7 +124,6 @@ public abstract class MenuItem extends JPanel {
 
 		// Sets the Paint.
 		Paint oldPaint = g2d.getPaint();
-//		g2d.setPaint(Color.blue);
 
 		// Sets the Shape.
 		Shape shape = textTl.getOutline(textAt);
@@ -166,16 +152,5 @@ public abstract class MenuItem extends JPanel {
 		g2d.setPaint(oldPaint);
 		g2d.setTransform(saveXform);
 	}
-
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//
-//		Graphics2D g2d = (Graphics2D) g;
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON);
-//		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-//				RenderingHints.VALUE_RENDER_QUALITY);
-//	}
 	
 }

@@ -47,18 +47,6 @@ public class SokoPanel extends JPanel {
 		}
 	}
 
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//		Graphics2D g2d = (Graphics2D) g;
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON);
-//		g2d.setColor(this.getBackground());
-//		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-//		this.paintImgList(g2d);
-//		g2d.dispose();
-//	}
-
 	public int getSokoPanelWidth(){
 		return this.width;
 	}

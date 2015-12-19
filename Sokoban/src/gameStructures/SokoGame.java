@@ -14,7 +14,6 @@ public class SokoGame {
 	private GameMatrix curMat;
 	private GameMatrix startMat;
 
-	// public final static String LEVEL_LISTE = "/levels/listeLevels.txt";
 	public final static ArrayList<String> LEVEL_NAMES = ListeLevels.LISTE_LEVEL_FILES;
 	private int currLevel;
 
@@ -42,8 +41,8 @@ public class SokoGame {
 		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(numLevel)));
 		this.reInitCurMat();
 
-		System.out.println("Niveu courant : " + this.currLevel);
-		System.out.println("          Nom : " + LEVEL_NAMES.get(numLevel));
+//		System.out.println("Niveu courant : " + this.currLevel);
+//		System.out.println("          Nom : " + LEVEL_NAMES.get(numLevel));
 
 	}
 
@@ -63,9 +62,6 @@ public class SokoGame {
 
 		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(nextLevelNum)));
 		this.reInitCurMat();
-
-		System.out.println("Niveu courant : " + this.currLevel);
-		System.out.println("          Nom : " + LEVEL_NAMES.get(nextLevelNum));
 	}
 
 	public void nextLevel() {
@@ -85,9 +81,6 @@ public class SokoGame {
 			if (!ListeLevels.LISTE_LEVELS.get(currLevel).isCompleted()){
 				ListeLevels.addCompletedLevel(currLevel);
 				LevelMenu.setCompletedItem(currLevel);
-				System.out.println(ListeLevels.getCompletedLevelsString());
-				System.out.println(ListeLevels.getIndexCompletedLevelsString());
-				System.out.println(ListeLevels.LISTE_LEVELS.get(currLevel).getName());
 			}
 			return true;
 		}

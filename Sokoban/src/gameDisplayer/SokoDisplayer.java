@@ -96,13 +96,12 @@ public class SokoDisplayer {
 		xTxt = panelWidth / 2 - (txtWidth / 2);
 		yTxt = panelHeight / 4 - (txtHeight / 4);
 		
-		
-		System.out.println("panelWidth : " + panelWidth);
-		System.out.println("txtWidth : " + txtWidth);
-		System.out.println("xTxt : " + xTxt);
-		System.out.println("panelHeight : " + panelHeight);
-		System.out.println("txtHeight : " + txtHeight);
-		System.out.println("yTxt : " + yTxt);
+//		System.out.println("panelWidth : " + panelWidth);
+//		System.out.println("txtWidth : " + txtWidth);
+//		System.out.println("xTxt : " + xTxt);
+//		System.out.println("panelHeight : " + panelHeight);
+//		System.out.println("txtHeight : " + txtHeight);
+//		System.out.println("yTxt : " + yTxt);
 
 		this.fen.addImageElement(new ImageElement(xTxt, yTxt,
 				ImageElement.TXT_COMPLETE, this.fen.getSokoGamePanel()));
