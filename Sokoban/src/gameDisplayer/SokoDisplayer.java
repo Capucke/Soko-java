@@ -18,29 +18,31 @@ public class SokoDisplayer {
 	public SokoDisplayer(SokoGame sokoMat, SokoFenetre sokoFen) {
 		this.fen = sokoFen;
 		this.setGame(sokoMat);
-
-		int maxWidth = sokoFen.getSokoGamePanel().getSokoPanelWidth()
-				/ (sokoMat.getWidth()-2);
-		int maxHeight = sokoFen.getSokoGamePanel().getSokoPanelHeight()
-				/ (sokoMat.getHeight()-2);
-		this.tailleImg = Math.min(maxWidth, maxHeight);
-		if (this.tailleImg >= 80) {
-			this.tailleImg = 80;
-		} else if (this.tailleImg >= 70) {
-			this.tailleImg = 70;
-		} else if (this.tailleImg >= 60) {
-			this.tailleImg = 60;
-		} else if (this.tailleImg >= 50) {
-			this.tailleImg = 50;
-		} else {
-			this.tailleImg = 40;
-		}
-
 		this.fen.getSokoGamePanel().addKeyListener(new SokoKeyListener(this));
 	}
 
 	public void setGame(SokoGame game) {
 		this.soko = game;
+		this.setTailleImg();
+	}
+	
+	private void setTailleImg(){
+		int maxWidth = this.fen.getSokoGamePanel().getSokoPanelWidth()
+				/ (this.soko.getWidth()-2);
+		int maxHeight = this.fen.getSokoGamePanel().getSokoPanelHeight()
+				/ (this.soko.getHeight()-2);
+		this.tailleImg = Math.min(maxWidth, maxHeight);
+		if (this.tailleImg > 80) {
+			this.tailleImg = 80;
+		} else if (this.tailleImg > 70) {
+			this.tailleImg = 70;
+		} else if (this.tailleImg > 60) {
+			this.tailleImg = 60;
+		} else if (this.tailleImg > 50) {
+			this.tailleImg = 50;
+		} else {
+			this.tailleImg = 40;
+		}
 	}
 
 	public SokoFenetre getFenetre() {
@@ -88,12 +90,12 @@ public class SokoDisplayer {
 	}
 
 	public void nextLevel() {
-		this.soko.nextLevel();
+		this.setGame(new SokoGame(this.soko.getNumLevel()+1));
 		this.display();
 	}
 
 	public void previousLevel() {
-		this.soko.previousLevel();
+		this.setGame(new SokoGame(this.soko.getNumLevel()-1));
 		this.display();
 	}
 

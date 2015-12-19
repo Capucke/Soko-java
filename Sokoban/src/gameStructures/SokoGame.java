@@ -37,39 +37,20 @@ public class SokoGame {
 	public final static int WALL = 6;
 
 	public SokoGame(int numLevel) {
-		this.currLevel = numLevel;
-		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(numLevel)));
+		int numOK;
+		
+		numOK = numLevel;
+		if (numOK < 0){
+			numOK += ListeLevels.NB_LEVELS;
+		}
+		this.currLevel = numOK % ListeLevels.NB_LEVELS;
+		
+		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(this.currLevel)));
 		this.reInitCurMat();
 
 //		System.out.println("Niveu courant : " + this.currLevel);
 //		System.out.println("          Nom : " + LEVEL_NAMES.get(numLevel));
 
-	}
-
-	private void navigateLevel(int diffLevel) {
-		int nextLevelNum = (currLevel + diffLevel);
-
-		while (nextLevelNum < 0) {
-			nextLevelNum += LEVEL_NAMES.size();
-		}
-		nextLevelNum = nextLevelNum % LEVEL_NAMES.size();
-
-		this.currLevel = nextLevelNum;
-		this.sokoI = -1;
-		this.sokoJ = -1;
-		this.initSokoI = -1;
-		this.initSokoJ = -1;
-
-		this.initStartMatrix(this.getBuffLevel(LEVEL_NAMES.get(nextLevelNum)));
-		this.reInitCurMat();
-	}
-
-	public void nextLevel() {
-		this.navigateLevel(1);
-	}
-
-	public void previousLevel() {
-		this.navigateLevel(-1);
 	}
 
 	public GameMatrix getCurrMat() {
@@ -96,6 +77,10 @@ public class SokoGame {
 				this.curMat.setObj(i, j, this.startMat.getObj(i, j));
 			}
 		}
+	}
+	
+	public int getNumLevel(){
+		return this.currLevel;
 	}
 
 	/**
