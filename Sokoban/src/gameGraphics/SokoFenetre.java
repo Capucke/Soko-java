@@ -20,8 +20,8 @@ public class SokoFenetre extends JFrame {
 	private FrontMenu frontMenu;
 	private FullLevelMenu levelMenu;
 
-	private int fenWidth = 400;
-	private int fenHeight = 200;
+	private int fenWidth;
+	private int fenHeight;
 	private SokoDisplayer sokoDisplayer;
 
 	public SokoFenetre() {

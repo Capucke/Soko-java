@@ -20,7 +20,7 @@ public class ExplicationPanel extends JPanel {
 		this.width = w;
 		this.height = h;
 		this.setPreferredSize(new Dimension(this.width, this.height));
-		this.explImg = new ImageElement(0, 0, ImageElement.EXPL_JEU, obs);
+		this.explImg = new ImageElement(0, 0, ImageElement.BIG_PEACH, obs);
 	}
 
 	@Override
