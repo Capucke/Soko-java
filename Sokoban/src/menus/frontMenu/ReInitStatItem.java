@@ -9,7 +9,7 @@ public class ReInitStatItem extends FrontMenuItem {
 	private static final long serialVersionUID = 8L;
 
 	public ReInitStatItem(SokoFenetre sokoFen, boolean isSelected) {
-		super(sokoFen,"Réinitialiser les statistiques", 50, isSelected);
+		super(sokoFen,"REINITIALISER", 50, isSelected);
 	}
 
 	@Override

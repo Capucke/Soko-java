@@ -2,19 +2,15 @@ package menus.frontMenu;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 public class FrontMenuKeyListener implements KeyListener {
 	
 	private FrontMenu menu;
+	private FrontMenuItem quitItem;
 	
-//	private ArrayList<FrontMenuItem> itemListe;
-//	private int selectedItem;
-	
-	public FrontMenuKeyListener(FrontMenu frontMenu, ArrayList<FrontMenuItem> items, int numSelect){
+	public FrontMenuKeyListener(FrontMenu frontMenu, FrontMenuItem quit){
 		this.menu = frontMenu;
-//		this.itemListe = items ;
-//		this.selectedItem = numSelect;
+		this.quitItem = quit;
 	}
 	
 	private void switchSelectedItem(int verticalDiff){
@@ -49,6 +45,9 @@ public class FrontMenuKeyListener implements KeyListener {
 			break;
 		case KeyEvent.VK_ENTER:
 			this.menu.getItem(this.menu.getSelectedItemNum()).actionIfSelected();
+			break;
+		case KeyEvent.VK_ESCAPE:
+			this.quitItem.actionIfSelected();
 			break;
 		default:
 			return;

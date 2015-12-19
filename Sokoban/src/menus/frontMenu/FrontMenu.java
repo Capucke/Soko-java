@@ -10,8 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 
-//import javax.swing.BoxLayout;
-
 public class FrontMenu extends SokoPanel {
 
 	private static final long serialVersionUID = 6L;
@@ -23,13 +21,11 @@ public class FrontMenu extends SokoPanel {
 	public FrontMenu(int w, int h, Color bg, SokoFenetre window) {
 		super(w, h, bg);
 		this.fen = window;
-		this.setBackground(Color.CYAN);
 
 		this.initBackground();
-		this.initItems();
+		FrontMenuItem quit = this.initItems();
 
-		this.addKeyListener(new FrontMenuKeyListener(this, this.itemListe,
-				this.selectedItem));
+		this.addKeyListener(new FrontMenuKeyListener(this, quit));
 
 		this.setPreferredSize(new Dimension(this.fen.getFenWidth(), this.fen
 				.getFenHeight()));
@@ -37,13 +33,20 @@ public class FrontMenu extends SokoPanel {
 	}
 
 	private void initBackground() {
-		ImageElement imgElemt = new ImageElement(
-				this.getSokoPanelWidth() - 250,
-				this.getSokoPanelHeight() - 250, ImageElement.BIG_PEACH, this.fen);
-		this.addImageElement(imgElemt);
+		ImageElement peachElemt = new ImageElement(
+				this.getSokoPanelWidth() - 220,
+				this.getSokoPanelHeight() - 250, ImageElement.BIG_PEACH,
+				this.fen);
+		ImageElement hollywoodElemt = new ImageElement(0, 200,
+				ImageElement.HOLLYWOOD, this.fen);
+		ImageElement cameraElemt = new ImageElement(0, this.getSokoPanelHeight() - 200,
+				ImageElement.FLASH_CAMERA, this.fen);
+		this.addImageElement(peachElemt);
+		this.addImageElement(hollywoodElemt);
+		this.addImageElement(cameraElemt);
 	}
 
-	private void initItems() {
+	private FrontMenuItem initItems() {
 		this.itemListe = new ArrayList<FrontMenuItem>(2);
 		this.selectedItem = 0;
 
@@ -54,44 +57,45 @@ public class FrontMenu extends SokoPanel {
 		this.itemListe.add(play);
 		this.itemListe.add(reInit);
 		this.itemListe.add(quit);
+		
+		return quit;
 	}
-	
-	public FrontMenuItem getItem(int numItem){
+
+	public FrontMenuItem getItem(int numItem) {
 		int realNum = numItem % this.itemListe.size();
 		return this.itemListe.get(realNum);
 	}
-	
-	public void setItemSelected(int numItem, boolean bool){
-		if (numItem < 0 || numItem >= this.itemListe.size()){
+
+	public void setItemSelected(int numItem, boolean bool) {
+		if (numItem < 0 || numItem >= this.itemListe.size()) {
 			return;
 		}
 		this.itemListe.get(numItem).setSelected(bool);
 	}
-	
-	public int getSelectedItemNum(){
+
+	public int getSelectedItemNum() {
 		return this.selectedItem;
 	}
-	
-	public void setSelectedItemNum(int num){
+
+	public void setSelectedItemNum(int num) {
 		this.selectedItem = num;
 	}
-	
-	public int getNbItems(){
+
+	public int getNbItems() {
 		return this.itemListe.size();
 	}
-	
-	private int wantedItemX(){
-		return this.getSokoPanelWidth()/2;
+
+	private int wantedItemX() {
+		return this.getSokoPanelWidth() / 2;
 	}
-	
-	private int wantedItemY(int numItem){
-		return numItem*(this.unitHeight()) + (this.unitHeight()/2);
+
+	private int wantedItemY(int numItem) {
+		return numItem * (this.unitHeight()) + (this.unitHeight() / 2);
 	}
-	
-	private int unitHeight(){
-		return this.getSokoPanelHeight()/(this.itemListe.size());
+
+	private int unitHeight() {
+		return this.getSokoPanelHeight() / (this.itemListe.size());
 	}
-	
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -102,19 +106,19 @@ public class FrontMenu extends SokoPanel {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
 				RenderingHints.VALUE_RENDER_QUALITY);
-		
+
 		this.paintImgList(g2d);
-		
+
 		synchronized (this.itemListe) {
 			FrontMenuItem item;
 			int yItem;
-			for (int i = 0; i < this.itemListe.size(); i++){
+			for (int i = 0; i < this.itemListe.size(); i++) {
 				item = this.itemListe.get(i);
 				yItem = this.wantedItemY(i);
 				item.paintItem(g2d, this.wantedItemX(), yItem);
 			}
 		}
-		
+
 		g2d.dispose();
 	}
 
