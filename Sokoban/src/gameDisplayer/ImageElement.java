@@ -73,8 +73,8 @@ public class ImageElement {
 			throw new IllegalArgumentException(
 					"Le premier argument doit être un game élément : BAG, SOKO, GOAL, ou EMPTY");
 		}
-		System.out.println("\n\n" + IMG_FOLDER + "x" + Integer.toString(size)
-				+ eltFileName + "\n\n");
+//		System.out.println("\n\n" + IMG_FOLDER + "x" + Integer.toString(size)
+//				+ eltFileName + "\n\n");
 		return chargeImg(IMG_FOLDER + "x" + Integer.toString(size)
 				+ eltFileName);
 	}
