@@ -28,7 +28,7 @@ public class SaveFile {
 		saveFile = new File(saveDir, saveFileName);
 		// if the file does not exist, create it
 		if (!saveFile.exists()) {
-			System.out.println("creating file: " + saveFileName);
+//			System.out.println("creating file: " + saveFileName);
 
 			try {
 				saveFile.createNewFile();
@@ -45,8 +45,8 @@ public class SaveFile {
 		saveDir = new File(System.getenv("APPDATA"), saveDirName);
 		// if the directory does not exist, create it
 		if (!saveDir.exists()) {
-			System.out.println("creating directory: " + saveDirName);
-			System.out.println("\nChemin : " + saveDir.getAbsolutePath());
+//			System.out.println("creating directory: " + saveDirName);
+//			System.out.println("\nChemin : " + saveDir.getAbsolutePath());
 			boolean result = false;
 
 			try {
@@ -54,9 +54,9 @@ public class SaveFile {
 			} catch (SecurityException se) {
 				System.err.println(se.getStackTrace());
 			}
-			if (result) {
-				System.out.println("directory : " + saveDirName + " created");
-			}
+//			if (result) {
+//				System.out.println("directory : " + saveDirName + " created");
+//			}
 			return result;
 		}
 		return true;
